@@ -33,5 +33,14 @@
 # Build data
 /build/
 
-# Composer PHAR
+# Composer
 /composer.phar
+composer.lock
+
+# eclipse
+.buildpath
+.project
+.settings
+
+# Symfony
+symfony.phar

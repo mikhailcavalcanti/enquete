@@ -1,2 +1,4 @@
-# Enquete
-Projeto de enquete para estudo de Symfony2, Doctrine2, AngularJS e Postgres.
+enquete
+=======
+
+A Symfony project created on April 13, 2015, 9:31 pm.
