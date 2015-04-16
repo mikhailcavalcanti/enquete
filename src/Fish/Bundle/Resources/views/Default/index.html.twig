@@ -1,46 +1,73 @@
-<html>
+<html ng-app="enquete">
 	<head>
-		<!-- Latest compiled and minified CSS -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-		<!-- Optional theme -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-		<!-- Latest compiled and minified JavaScript -->
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 		<style>
 			body { position: absolute; left: 50%; margin-left: -45%; width: 90%; }
-			section { float: left; width: 49%; border: 1px solid #000; text-align: center; margin-right: 5px; padding: 5px; }
-			section form { text-align: left; padding: 0px 15px; }
-			section form label { display: block; width: 200px; margin-top: 10px; }
-			section form input[type=text] { width: 100%; }
-			section form input[type=submit] { margin-top: 15px; position: relative; width: 150px; left: 50%; margin-left: -75px; }
+			section { float: left; border: 1px solid #f2f2f2; margin-right: 5px; padding: 5px; }
+			section li { list-style: none; margin-left: -39px; }
+			section label { display: block; margin: 10px 0px 5px; }
+			section#titulo { width: 20%; }
+			section#enquete { width: 70%; }
+			section#enquete fieldset { width: 380px; margin-top: 15px; }
+			section#enquete input { width: 350px; }
+			section#pergunta, section#resposta { width: 49%; padding: 0px; border: 0px; }
+			input { padding: 5px; }
 		</style>
 	</head>
-	<body>
-		<h1>Enquete</h1>
-		<section>
-			<h1>Titulo</h1>
+	<body ng-controller="EnqueteController">
+		<h1>Prototype</h1>
+		<section id="titulo">
+			<form>
+				<label>Titulo</label>
+				<input type="text" name="titulo" ng-model="filter.enquete.titulo" />
+				<input type="button" value="add" />
+			</form>
 			<ul>
-				<form>
-				<li></li>
-				</form>
+				{% verbatim %}
+					<li ng-repeat="enquete in enquetes track by $index">
+						<a href="#{{enquete.id}}" ng-click="edit(enquete)">{{enquete.titulo}}</a>
+					</li>
+				{% endverbatim %}
 			</ul>
 		</section>
-
-		<section>
-		<form>
-			<section>
-				<h1>Form</h1>
-					<label for="titulo">Título:</label>
-					<input type="text" name="titulo" value="" />
-					<label for="pergunta">Pergunta:</label>
-					<input type="text" name="pergunta" value="" />
-					<label for="resposta">Resposta:</label>
-					<input type="text" name="resposta" value="" />
-					<input type="submit" />
+		
+		<section id="enquete">
+			<input type="button" value="add" ng-click="add(enquete)" />
+			<section id="pergunta">
+				<form>
+					<label for="titulo">Título</label>
+					<input type="text" name="titulo" ng-model="enquete.titulo" />
+	
+					<label for="pergunta">Pergunta</label>
+					<input type="text" name="pergunta" ng-model="enquete.pergunta.pergunta" />
+					
+					<fieldset>
+						<legend>Respostas</legend>
+						<ul>
+							<li>Resposta 01</li>
+							<li>Resposta 02</li>
+						</ul>
+					</fieldset>
+				</form>
 			</section>
-		<section>
-			<h1>List</h1>
+			<section id="resposta">
+				<form>
+					<label for="resposta">Resposta</label>
+					<input type="text" name="resposta" />
+				</form>
+				<ul>
+					<li>Resposta 01</li>
+					<li>Resposta 02</li>
+				</ul>
+			</section>
 		</section>
-		</form>
+		
+				{% verbatim %}
+					{{ enquete }}
+				{% endverbatim %}
+
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+		<script src="/bundles/fish/js/EnqueteController.js"></script>
+		<script src="/bundles/fish/js/EnqueteService.js"></script>
+		<script src="/bundles/fish/js/EnqueteModel.js"></script>
 	</body>
 </html>
