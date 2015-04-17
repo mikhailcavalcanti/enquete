@@ -43,8 +43,9 @@
 					<fieldset>
 						<legend>Respostas</legend>
 						<ul>
-							<li>Resposta 01</li>
-							<li>Resposta 02</li>
+							{% verbatim %}
+								<li ng-repeat="resposta in enquete.pergunta.respostas track by $index">{{resposta.resposta}}</li>
+							{% endverbatim %}
 						</ul>
 					</fieldset>
 				</form>
