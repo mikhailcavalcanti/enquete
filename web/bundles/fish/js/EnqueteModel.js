@@ -1,0 +1,3 @@
+EnqueteModel = {
+	titulo: ''
+};
