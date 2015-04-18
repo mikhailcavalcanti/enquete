@@ -2,15 +2,22 @@
 	<head>
 		<style>
 			body { position: absolute; left: 50%; margin-left: -45%; width: 90%; }
+			input { padding: 5px; }
+			input[type=text] { min-width: 244px; padding: 7px; }
 			section { float: left; border: 1px solid #f2f2f2; margin-right: 5px; padding: 5px; }
 			section li { list-style: none; margin-left: -39px; }
 			section label { display: block; margin: 10px 0px 5px; }
 			section#titulo { width: 20%; }
 			section#enquete { width: 70%; }
-			section#enquete fieldset { width: 380px; margin-top: 15px; }
-			section#enquete input { width: 350px; }
+			section#enquete div { clear: both; width: 100%; text-align: center; background: #f2f2f2; }
+			section#enquete input { width: 371px; }
+			section#enquete input[type=button] { width: 150px; }
+			section#enquete span { float: left; width: 90%; padding: 7px 0px 7px 5px; }
+			section#enquete ul { border: 1px solid #f2f2f2; }
+			section#enquete ul li { padding: 5px; }
+			section#enquete ul li:hover { background-color: #f2f2f2; }
+			section#enquete ul li input[type=button], section#resposta form input[type=button] { width: 35px; }
 			section#pergunta, section#resposta { width: 49%; padding: 0px; border: 0px; }
-			input { padding: 5px; }
 		</style>
 	</head>
 	<body ng-controller="EnqueteController">
@@ -19,7 +26,6 @@
 			<form>
 				<label>Titulo</label>
 				<input type="text" name="titulo" ng-model="filter.enquete.titulo" />
-				<input type="button" value="add" />
 			</form>
 			<ul>
 				{% verbatim %}
@@ -31,7 +37,6 @@
 		</section>
 		
 		<section id="enquete">
-			<input type="button" value="add" ng-click="add(enquete)" />
 			<section id="pergunta">
 				<form>
 					<label for="titulo">Título</label>
@@ -40,35 +45,46 @@
 					<label for="pergunta">Pergunta</label>
 					<input type="text" name="pergunta" ng-model="enquete.pergunta.pergunta" />
 					
-					<fieldset>
-						<legend>Respostas</legend>
-						<ul>
-							{% verbatim %}
-								<li ng-repeat="resposta in enquete.pergunta.respostas track by $index">{{resposta.resposta}}</li>
-							{% endverbatim %}
-						</ul>
-					</fieldset>
+					<label>Respostas</label>
+					<ul>
+						{% verbatim %}
+							<li ng-repeat="resposta in enquete.pergunta.respostas track by $index">
+								<span>{{resposta.resposta}}</span>
+								<input type="button" value="X" ng-click="perguntaRespostaRemover(resposta)" />
+							</li>
+						{% endverbatim %}
+					</ul>
 				</form>
 			</section>
 			<section id="resposta">
 				<form>
 					<label for="resposta">Resposta</label>
-					<input type="text" name="resposta" />
+					<input type="text" name="resposta" ng-model="resposta.resposta" />
+					<input type="button" value="Add" ng-click="respostaAdicionar(resposta)" />
 				</form>
 				<ul>
-					<li>Resposta 01</li>
-					<li>Resposta 02</li>
+					{% verbatim %}
+						<li ng-repeat="resposta in respostas track by $index">
+							<span>{{resposta.resposta}}</span>
+							<input type="button" value="Add" ng-click="perguntaRespostaAdicionar(resposta)" />
+						</li>
+					{% endverbatim %}
 				</ul>
 			</section>
+			<div>
+				<input type="button" value="clean" ng-click="clean(enquete)" />
+				<input type="button" value="save" ng-click="save(enquete)" />
+			</div>
 		</section>
 		
-				{% verbatim %}
-					{{ enquete }}
-				{% endverbatim %}
+		{#% verbatim %}
+			{{ enquete }}
+		{% endverbatim %#}
 
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
 		<script src="/bundles/fish/js/EnqueteController.js"></script>
 		<script src="/bundles/fish/js/EnqueteService.js"></script>
 		<script src="/bundles/fish/js/EnqueteModel.js"></script>
+		<script src="/bundles/fish/js/RespostaService.js"></script>
 	</body>
 </html>

@@ -22,7 +22,7 @@ class EnqueteEntity
 		$this->titulo = $titulo;
 	}
 
-	public function setPergunta($pergunta)
+	public function setPergunta(PerguntaEntity $pergunta)
 	{
 		$this->pergunta = $pergunta;
 	}

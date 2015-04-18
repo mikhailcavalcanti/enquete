@@ -13,9 +13,35 @@ use Fish\Bundle\Entity\EnqueteEntity;
 use Symfony\Component\HttpFoundation\Request;
 use Fish\Bundle\Entity\PerguntaEntity;
 use Fish\Bundle\Entity\RespostaEntity;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 class EnqueteController extends Controller
 {
+    /**
+     * @Route("/enquete/")
+     * @Method({"POST"})
+	 * @ ParamConverter("post", class="EnqueteBundle:EnqueteEntity")
+     * @Template()
+     */
+    public function createAction(Request $request)
+    {
+    	$enqueteJson = $this->get("request")->getContent();
+    	if ($enqueteJson) {
+    		$enqueteJson = json_decode($enqueteJson);
+    		$enquete = new EnqueteEntity();
+    		$enquete->setTitulo($enqueteJson->titulo);
+    		
+    		if (isset($enqueteJson->pergunta)) {
+    			$pergunta = new PerguntaEntity();
+    			$pergunta->setPergunta($enqueteJson->pergunta->pergunta);
+    			$enquete->setPergunta($pergunta);
+    		}
+    	}
+    	dump($enquete,1);
+    	$enquete = new EnqueteEntity();
+    	return new Response(null, Response::HTTP_CREATED);
+    	dump('aee',1);
+    }
     /**
      * @Route("/enquete/{id}.{_format}")
      * @Template()
@@ -41,9 +67,11 @@ class EnqueteController extends Controller
     	#
     	{
 	    	$resposta1 = new RespostaEntity();
-	    	$resposta1->setResposta('Nao sei');
+	    	$resposta1->setId(1);
+	    	$resposta1->setResposta('Resposta 01');
 	    	$resposta2 = new RespostaEntity();
-	    	$resposta2->setResposta('Sei la');
+	    	$resposta2->setId(2);
+	    	$resposta2->setResposta('Resposta 02');
 	    	#
 	    	$pergunta = new PerguntaEntity();
 	    	$pergunta->setPergunta('Tostines e fesquinho prq e mais gostoso ou mais gostoso prq e frenquinho?');
