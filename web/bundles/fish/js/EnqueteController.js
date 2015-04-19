@@ -1,4 +1,4 @@
-var app = angular.module('enquete', []).controller(
+var app = angular.module('enquete', []).constant('BASE_URL', BASE_URL).controller(
 	'EnqueteController', 
 	['$scope', '$http', 'EnqueteService', 'PerguntaService', 'RespostaService', function($scope, $http, EnqueteService, PerguntaService, RespostaService) {
 	// init
