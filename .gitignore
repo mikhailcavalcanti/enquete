@@ -44,3 +44,4 @@ composer.lock
 
 # Symfony
 symfony.phar
+/nbproject/
