@@ -4,19 +4,10 @@ var app = angular.module('enquete', []).controller(
 	// init
 	EnqueteService.read().success(function(data) {
 		$scope.enquetes = data;
-//		$scope.enquete = $scope.enquetes[0];
+		$scope.enquete = $scope.enquetes[0];
 		// respostas
 		RespostaService.read().success(function(data) {
 			$scope.respostas = data;
-			if ($scope.enquete) {
-				for (var index1 = 0; index1 < $scope.respostas.length; index1++) {
-					for (var index2 = 0; index2 < $scope.enquete.pergunta.respostas.length; index2++) {
-						if ($scope.respostas[index1].id == $scope.enquete.pergunta.respostas[index2].id) {
-							$scope.respostas.splice(index1, 1);
-						}
-					}
-				}
-			}
 		});
 	});
 	// methods
@@ -37,6 +28,13 @@ var app = angular.module('enquete', []).controller(
 	};
 	$scope.clean = function(enquete) {
 		$scope.enquete = EnqueteModel;
+	};
+	$scope.perguntaRemover = function(pergunta) {
+		for (var index = 0; index < $scope.enquete.perguntas.length; index++) {
+			if ($scope.enquete.perguntas[index].id == pergunta.id) {
+				$scope.enquete.perguntas.splice(index, 1);
+			}
+		}
 	};
 	$scope.perguntaRespostaRemover = function(resposta) {
 		for (var index = 0; index < $scope.enquete.pergunta.respostas.length; index++) {
