@@ -10,7 +10,7 @@ class PerguntaEntity
 {
 	public $id;
 	public $pergunta;
-	public $respostas;
+	public $respostas = array();
 
 	public function setId($id)
 	{

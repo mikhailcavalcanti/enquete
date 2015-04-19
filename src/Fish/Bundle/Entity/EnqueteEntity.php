@@ -10,7 +10,7 @@ class EnqueteEntity
 {
 	public $id;
 	public $titulo;
-	public $perguntas;
+	public $perguntas = array();
 
 	public function setId($id)
 	{

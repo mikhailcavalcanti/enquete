@@ -74,9 +74,11 @@ class EnqueteController extends Controller
 	    	$resposta2->setResposta('Resposta 02');
 	    	#
 	    	$pergunta1 = new PerguntaEntity();
+	    	$pergunta1->setId(1);
 	    	$pergunta1->setPergunta('Porque usar PHP?');
 	    	$pergunta1->setRespostas(array($resposta1, $resposta2));
 	    	$pergunta2 = new PerguntaEntity();
+	    	$pergunta2->setId(2);
 	    	$pergunta2->setPergunta('Porque nao usar PHP?');
 	    	$pergunta2->setRespostas(array($resposta1, $resposta2));
 	    	#
@@ -87,9 +89,16 @@ class EnqueteController extends Controller
     	}
     	#
     	{
+    		#
+	    	$pergunta3 = new PerguntaEntity();
+	    	$pergunta3->setId(3);
+	    	$pergunta3->setPergunta('Porque usar?');
+	    	$pergunta3->setRespostas(array($resposta1, $resposta2));
+	    	#
 	    	$enquete2 = new EnqueteEntity();
 	    	$enquete2->setId(2);
 	    	$enquete2->setTitulo('Enquete 02');
+	    	$enquete2->setPerguntas(array($pergunta3));
     	}
     	#
     	$enquetes = array($enquete1, $enquete2);
