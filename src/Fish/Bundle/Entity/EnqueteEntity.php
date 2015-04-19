@@ -10,7 +10,7 @@ class EnqueteEntity
 {
 	public $id;
 	public $titulo;
-	public $pergunta;
+	public $perguntas;
 
 	public function setId($id)
 	{
@@ -22,8 +22,8 @@ class EnqueteEntity
 		$this->titulo = $titulo;
 	}
 
-	public function setPergunta(PerguntaEntity $pergunta)
+	public function setPerguntas(Array $perguntas)
 	{
-		$this->pergunta = $pergunta;
+		$this->perguntas = $perguntas;
 	}
 }

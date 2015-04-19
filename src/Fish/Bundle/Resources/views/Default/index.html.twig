@@ -2,6 +2,7 @@
 	<head>
 		<style>
 			body { position: absolute; left: 50%; margin-left: -45%; width: 90%; }
+			h1 { position: absolute; top: 67px; left: -120px; -webkit-transform:rotate(270deg); -moz-transform:rotate(270deg); -o-transform: rotate(270deg); }
 			input { padding: 5px; }
 			input[type=text] { min-width: 244px; padding: 7px; }
 			section { float: left; border: 1px solid #f2f2f2; margin-right: 5px; padding: 5px; }
@@ -37,24 +38,32 @@
 		</section>
 		
 		<section id="enquete">
+			<form>
+				<label for="titulo">Título</label>
+				<input type="text" name="titulo" ng-model="enquete.titulo" />
+			</form>
+			
 			<section id="pergunta">
 				<form>
-					<label for="titulo">Título</label>
-					<input type="text" name="titulo" ng-model="enquete.titulo" />
-	
 					<label for="pergunta">Pergunta</label>
 					<input type="text" name="pergunta" ng-model="enquete.pergunta.pergunta" />
+				</form>
 					
-					<label>Respostas</label>
-					<ul>
-						{% verbatim %}
-							<li ng-repeat="resposta in enquete.pergunta.respostas track by $index">
+				<label>Perguntas</label>
+				<ul>
+					{% verbatim %}
+						<li ng-repeat="pergunta in enquete.perguntas track by $index">
+							<span>{{pergunta.pergunta}}</span>
+							<input type="button" value="X" ng-click="perguntaRemover(pergunta)" />
+							
+							
+							<!-- li ng-repeat="resposta in enquete.pergunta.respostas track by $index">
 								<span>{{resposta.resposta}}</span>
 								<input type="button" value="X" ng-click="perguntaRespostaRemover(resposta)" />
-							</li>
-						{% endverbatim %}
-					</ul>
-				</form>
+							</li -->
+						</li>
+					{% endverbatim %}
+				</ul>
 			</section>
 			<section id="resposta">
 				<form>
@@ -62,6 +71,7 @@
 					<input type="text" name="resposta" ng-model="resposta.resposta" />
 					<input type="button" value="Add" ng-click="respostaAdicionar(resposta)" />
 				</form>
+				<label>Respostas</label>
 				<ul>
 					{% verbatim %}
 						<li ng-repeat="resposta in respostas track by $index">
