@@ -1,9 +1,9 @@
-app.factory('PerguntaService', function ($http) {
-	var perguntas = [];
-	var Pergunta = {
-		read: function() {
-			return $http.get('http://enquete.xys/app_dev.php/pergunta/.json');
-		}
-	};
-	return Pergunta;
+app.factory('PerguntaService', function ($http, BASE_URL) {
+    var perguntas = [];
+    var Pergunta = {
+        read: function () {
+            return $http.get(BASE_URL + '/pergunta/.json');
+        }
+    };
+    return Pergunta;
 });
