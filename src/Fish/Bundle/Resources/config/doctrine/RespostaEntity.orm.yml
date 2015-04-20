@@ -1,0 +1,12 @@
+Fish\Bundle\Entity\RespostaEntity:
+    type: entity
+    schema: enquete
+    table: resposta
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        resposta:
+            type: string
+            length: 255

@@ -2,16 +2,11 @@
 
 namespace Fish\Bundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Fish\Bundle\Entity\RespostaEntity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
-use Symfony\Component\Serializer\Serializer;
-use Fish\Bundle\Entity\EnqueteEntity;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Fish\Bundle\Entity\RespostaEntity;
 
 class RespostaController extends Controller
 {
@@ -46,5 +41,18 @@ class RespostaController extends Controller
     	#
     	$respostas = array($resposta1, $resposta2, $resposta3);
     	$request->query->set('respostas', $respostas);
+    }
+    
+    /**
+     * @Route("/resposta/create")
+     * @ParamConverter("resposta", class="EnqueteBundle:Model:RespostaModel")
+     */
+    public function create($resposta)
+    {
+//        $resposta = new RespostaEntity();
+//        $resposta->setResposta($request->get('resposta'));
+        exit(var_dump($resposta));
+        $this->get('resposta_model')->create($resposta);
+        return 'lol';
     }
 }
