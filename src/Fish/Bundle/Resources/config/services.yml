@@ -1,0 +1,4 @@
+services:
+    resposta_model:
+        class: Fish\Bundle\Model\RespostaModel
+        arguments: ['@service_container']
