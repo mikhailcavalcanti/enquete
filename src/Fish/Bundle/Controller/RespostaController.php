@@ -3,56 +3,60 @@
 namespace Fish\Bundle\Controller;
 
 use Fish\Bundle\Entity\RespostaEntity;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * @Route("/api")
+ */
 class RespostaController extends Controller
 {
+//
     /**
-     * @Route("/resposta/{id}.{_format}")
-     * @Template()
+     * @Route("/resposta")
+     * @Method({"POST"})
      */
-    public function findAction(Request $request, $id, $_format)
+    public function create(Request $request)
     {
-    	$resposta = new RespostaEntity();
-    	$resposta->setId(1);
-    	$resposta->setResposta('Resposta 01');
-    	#
-    	$request->query->set('resposta', $resposta);
+        /* @var $entity RespostaEntity */
+        $entity = $this->get('resposta_entity');
+        $entity->setResposta($request->request->get('resposta'));
+        $this->get('resposta_model')->create($entity);
+        return new JsonResponse($entity, Response::HTTP_CREATED);
     }
 
     /**
-     * @Route("/resposta/.{_format}")
-     * @Template()
+     * @Route("/resposta/{id}", defaults={"id" = null})
+     * @Method({"GET"})
      */
-    public function readAction(Request $request, $_format)
+    public function readAction(RespostaEntity $entity)
     {
-    	$resposta1 = new RespostaEntity();
-    	$resposta1->setId(1);
-    	$resposta1->setResposta('Resposta 01');
-    	$resposta2 = new RespostaEntity();
-    	$resposta2->setId(2);
-    	$resposta2->setResposta('Resposta 02');
-    	$resposta3 = new RespostaEntity();
-    	$resposta3->setId(3);
-    	$resposta3->setResposta('Resposta 03');
-    	#
-    	$respostas = array($resposta1, $resposta2, $resposta3);
-    	$request->query->set('respostas', $respostas);
+        return new JsonResponse($entity);
     }
-    
+
     /**
-     * @Route("/resposta/create")
-     * @ParamConverter("resposta", class="EnqueteBundle:Model:RespostaModel")
+     * @Route("/resposta/{id}")
+     * @Method({"PUT"})
      */
-    public function create($resposta)
+    public function updateAction(Request $request, RespostaEntity $entity)
     {
-//        $resposta = new RespostaEntity();
-//        $resposta->setResposta($request->get('resposta'));
-        exit(var_dump($resposta));
-        $this->get('resposta_model')->create($resposta);
-        return 'lol';
+        /* @var $entity RespostaEntity */
+        $entity->setResposta($request->request->get('resposta'));
+        return new JsonResponse($this->get('resposta_model')->update($entity));
     }
+
+    /**
+     * @Route("/resposta/{id}")
+     * @Method({"DELETE"})
+     */
+    public function deleteAction($id)
+    {
+        $this->get('resposta_model')->delete($id);
+        return new JsonResponse('', Response::HTTP_NO_CONTENT);
+    }
+
 }

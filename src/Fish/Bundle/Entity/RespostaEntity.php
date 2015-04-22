@@ -9,7 +9,7 @@ namespace Fish\Bundle\Entity;
 /**
  * 
  */
-class RespostaEntity
+class RespostaEntity extends AbstractEntity
 {
 
     /**

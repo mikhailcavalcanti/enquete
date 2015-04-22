@@ -2,3 +2,6 @@ services:
     resposta_model:
         class: Fish\Bundle\Model\RespostaModel
         arguments: ['@service_container']
+    resposta_entity:
+        scope: prototype
+        class: Fish\Bundle\Entity\RespostaEntity

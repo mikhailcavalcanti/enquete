@@ -2,6 +2,7 @@
 
 namespace Fish\Bundle\Model;
 
+use Fish\Bundle\Entity\AbstractEntity;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -19,6 +20,12 @@ class AbstractModel implements CrudInterface
     private $container = null;
 
     /**
+     *
+     * @var string Nome do serviço da entidade a ser encontrado no $container
+     */
+    private $entityNameService = null;
+
+    /**
      * 
      * @param ContainerInterface $container
      */
@@ -29,27 +36,61 @@ class AbstractModel implements CrudInterface
 
     /**
      * 
+     * @return string O nome do serviço que deve estar registrado no $container
      */
-    public function create($entity)
+    private function getEntityNameService()
     {
-        $entityManager = $this->container->get('doctrine')->getManager();
-        $entityManager->persist($entity);
-        $entityManager->flush();
+        if (null === $this->entityNameService) {
+            $entityServiceNameArray = explode('\\', str_replace('model', '_entity', strtolower(get_class($this)))
+            );
+            $this->entityNameService = end($entityServiceNameArray);
+        }
+        return $this->entityNameService;
+    }
+
+    /**
+     * 
+     * @param AbstractEntity $entity
+     * @return AbstractEntity
+     */
+    public function create(AbstractEntity $entity)
+    {
+        $this->container->get('doctrine.orm.default_entity_manager')->persist($entity);
+        $this->container->get('doctrine.orm.default_entity_manager')->flush();
+        return $entity;
+    }
+
+    /**
+     * 
+     * @param int $id
+     * @return AbstractEntity
+     */
+    public function read($id = null)
+    {
+        $entity = $this->container->get($this->getEntityNameService());
+        if (null === $id) {
+            return $this->container->get('doctrine.orm.default_entity_manager')->getRepository(get_class($entity))->findAll();
+        }
+        return $this->container->get('doctrine.orm.default_entity_manager')->getRepository(get_class($entity))->find($id);
+    }
+
+    /**
+     * 
+     * @param AbstractEntity $entity
+     * @return AbstractEntity
+     */
+    public function update(AbstractEntity $entity)
+    {
+        $this->container->get('doctrine.orm.default_entity_manager')->flush();
+        return $entity;
     }
 
     public function delete($id)
     {
-        
-    }
-
-    public function read($id = null)
-    {
-        
-    }
-
-    public function update($id)
-    {
-        
+        $this->container
+                ->get('doctrine.orm.default_entity_manager')
+                ->remove($this->read($id));
+        $this->container->get('doctrine.orm.default_entity_manager')->flush();
     }
 
 }
