@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * 
+ */
+
+namespace Fish\Bundle\Entity;
+
+/**
+ * 
+ */
+class PerguntaEntity
+{
+
+    public $id;
+    public $pergunta;
+    public $respostas = array();
+
+}

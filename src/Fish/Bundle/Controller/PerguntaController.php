@@ -2,30 +2,34 @@
 
 namespace Fish\Bundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Fish\Bundle\Entity\PerguntaEntity;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
-use Symfony\Component\Serializer\Serializer;
-use Fish\Bundle\Entity\EnqueteEntity;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Fish\Bundle\Entity\PerguntaEntity;
 
+/**
+ * @Route("/api")
+ */
 class PerguntaController extends Controller
 {
+
     /**
-     * @Route("/pergunta/{id}.{_format}")
-     * @Template()
+     * @Route("/pergunta")
+     * @Method({"POST"})
      */
-    public function findAction(Request $request, $id, $_format)
+    public function createAction(Request $request)
     {
-    	$pergunta = new PerguntaEntity();
-    	$pergunta->setId(1);
-    	$pergunta->setPergunta('Pergunta 01');
-    	#
-    	$request->query->set('pergunta', $pergunta);
+        /* @var $pergunta PerguntaEntity */
+        $pergunta = $this->get('pergunta_entity');
+        $pergunta->setPergunta($request->request->get('pergunta'));
+        foreach ($request->request->get('respostas') as $respostaRequest) {
+            $pergunta->addResposta($this->get('resposta_model')->read($respostaRequest['id']));
+        }
+        $this->get('pergunta_model')->create($pergunta);
+        return new JsonResponse('', \Symfony\Component\HttpFoundation\Response::HTTP_CREATED);
     }
 
     /**
@@ -34,17 +38,18 @@ class PerguntaController extends Controller
      */
     public function readAction(Request $request, $_format)
     {
-    	$pergunta1 = new PerguntaEntity();
-    	$pergunta1->setId(1);
-    	$pergunta1->setPergunta('Pergunta 01');
-    	$pergunta2 = new PerguntaEntity();
-    	$pergunta2->setId(2);
-    	$pergunta2->setPergunta('Pergunta 02');
-    	$pergunta3 = new PerguntaEntity();
-    	$pergunta3->setId(3);
-    	$pergunta3->setPergunta('Pergunta 03');
-    	#
-    	$perguntas = array($pergunta1, $pergunta2, $pergunta3);
-    	$request->query->set('perguntas', $perguntas);
+        $pergunta1 = new PerguntaEntity();
+        $pergunta1->setId(1);
+        $pergunta1->setPergunta('Pergunta 01');
+        $pergunta2 = new PerguntaEntity();
+        $pergunta2->setId(2);
+        $pergunta2->setPergunta('Pergunta 02');
+        $pergunta3 = new PerguntaEntity();
+        $pergunta3->setId(3);
+        $pergunta3->setPergunta('Pergunta 03');
+        #
+        $perguntas = array($pergunta1, $pergunta2, $pergunta3);
+        $request->query->set('perguntas', $perguntas);
     }
+
 }
