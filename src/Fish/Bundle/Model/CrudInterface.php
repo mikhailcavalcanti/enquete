@@ -25,9 +25,10 @@ interface CrudInterface
 
     /**
      * 
+     * @param int $id
      * @param AbstractEntity $entity
      */
-    public function update(AbstractEntity $entity);
+    public function update($id, AbstractEntity $entity);
 
     /**
      * 

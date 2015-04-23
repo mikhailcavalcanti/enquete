@@ -16,13 +16,13 @@ class RespostaEntity extends AbstractEntity
      *
      * @var int
      */
-    public $id;
+    private $id;
 
     /**
      *
      * @var string
      */
-    public $resposta;
+    private $resposta;
 
     /**
      * Get id

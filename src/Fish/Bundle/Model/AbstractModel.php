@@ -76,10 +76,11 @@ class AbstractModel implements CrudInterface
 
     /**
      * 
+     * @param type $id
      * @param AbstractEntity $entity
      * @return AbstractEntity
      */
-    public function update(AbstractEntity $entity)
+    public function update($id, AbstractEntity $entity)
     {
         $this->container->get('doctrine.orm.default_entity_manager')->flush();
         return $entity;

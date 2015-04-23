@@ -19,19 +19,19 @@ class PerguntaEntity extends AbstractEntity
      *
      * @var int 
      */
-    public $id;
+    private $id;
 
     /**
      *
      * @var string 
      */
-    public $pergunta;
+    private $pergunta;
 
     /**
      *
      * @var ArrayCollection 
      */
-    public $respostas = array();
+    private $respostas = array();
 
     /**
      * Constructor
@@ -60,7 +60,6 @@ class PerguntaEntity extends AbstractEntity
     public function setPergunta($pergunta)
     {
         $this->pergunta = $pergunta;
-
         return $this;
     }
 
@@ -83,7 +82,6 @@ class PerguntaEntity extends AbstractEntity
     public function addResposta(RespostaEntity $respostas)
     {
         $this->respostas[] = $respostas;
-
         return $this;
     }
 
@@ -105,6 +103,17 @@ class PerguntaEntity extends AbstractEntity
     public function getRespostas()
     {
         return $this->respostas;
+    }
+
+    /**
+     * Set respostas
+     *
+     * @return PerguntaEntity 
+     */
+    public function setRespostas(ArrayCollection $respostas)
+    {
+        $this->respostas = $respostas;
+        return $this;
     }
 
 }
