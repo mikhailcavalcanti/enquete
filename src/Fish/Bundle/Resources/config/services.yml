@@ -1,5 +1,8 @@
 services:
 
+    enquete_model:
+        class: Fish\Bundle\Model\EnqueteModel
+        arguments: ['@service_container']
     pergunta_model:
         class: Fish\Bundle\Model\PerguntaModel
         arguments: ['@service_container']
@@ -7,6 +10,9 @@ services:
         class: Fish\Bundle\Model\RespostaModel
         arguments: ['@service_container']
 
+    enquete_entity:
+        scope: prototype
+        class: Fish\Bundle\Entity\EnqueteEntity
     pergunta_entity:
         scope: prototype
         class: Fish\Bundle\Entity\PerguntaEntity

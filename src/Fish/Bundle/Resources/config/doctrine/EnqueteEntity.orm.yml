@@ -1,0 +1,23 @@
+Fish\Bundle\Entity\EnqueteEntity:
+    type: entity
+    schema: enquete
+    table: enquete
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        titulo:
+            type: string
+            length: 255
+    manyToMany:
+        perguntas:
+            targetEntity: Fish\Bundle\Entity\PerguntaEntity
+            joinTable:
+              name: enquete_pergunta
+              joinColumns:
+                enquete_id:
+                  referencedColumnName: id
+              inverseJoinColumns:
+                pergunta_id:
+                  referencedColumnName: id
