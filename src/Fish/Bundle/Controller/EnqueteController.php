@@ -46,57 +46,10 @@ class EnqueteController extends Controller
      * @param EnqueteEntity $enquete
      * @return Response
      */
-    public function findAction(EnqueteEntity $enquete = null)
+    public function readAction(EnqueteEntity $enquete = null)
     {
         $stauts = empty($enquete) ? Response::HTTP_NOT_FOUND : Response::HTTP_OK;
         return new Response($this->get('jms_serializer')->serialize($enquete, 'json'), $stauts, array('content-type' => 'application/json'));
-    }
-
-    /**
-     * @Route("/enquete/.{_format}")
-     * @Template()
-     */
-    public function readAction(Request $request, $_format)
-    {
-        #
-        {
-            $resposta1 = new RespostaEntity();
-            $resposta1->setId(1);
-            $resposta1->setResposta('Resposta 01');
-            $resposta2 = new RespostaEntity();
-            $resposta2->setId(2);
-            $resposta2->setResposta('Resposta 02');
-            #
-            $pergunta1 = new PerguntaEntity();
-            $pergunta1->setId(1);
-            $pergunta1->setPergunta('Porque usar PHP?');
-            $pergunta1->setRespostas(array($resposta1, $resposta2));
-            $pergunta2 = new PerguntaEntity();
-            $pergunta2->setId(2);
-            $pergunta2->setPergunta('Porque nao usar PHP?');
-            $pergunta2->setRespostas(array($resposta1, $resposta2));
-            #
-            $enquete1 = new EnqueteEntity();
-            $enquete1->setId(1);
-            $enquete1->setTitulo('Enquete 01');
-            $enquete1->setPerguntas(array($pergunta1, $pergunta2));
-        }
-        #
-        {
-            #
-            $pergunta3 = new PerguntaEntity();
-            $pergunta3->setId(3);
-            $pergunta3->setPergunta('Porque usar?');
-            $pergunta3->setRespostas(array($resposta1, $resposta2));
-            #
-            $enquete2 = new EnqueteEntity();
-            $enquete2->setId(2);
-            $enquete2->setTitulo('Enquete 02');
-            $enquete2->setPerguntas(array($pergunta3));
-        }
-        #
-        $enquetes = array($enquete1, $enquete2);
-        $request->query->set('enquetes', $enquetes);
     }
 
 }
