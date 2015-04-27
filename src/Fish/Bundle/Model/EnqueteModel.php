@@ -16,6 +16,23 @@ class EnqueteModel extends AbstractModel
 
     /**
      * 
+     * @param int $id
+     * @param AbstractEntity $entity
+     * @return type
+     */
+    public function update($id, AbstractEntity $entity)
+    {
+        /* @var $entity EnqueteEntity */
+        $this->validate($entity);
+        /* @var $databaseEntity EnqueteEntity */
+        $databaseEntity = $this->read($id);
+        $databaseEntity->setTitulo($entity->getTitulo());
+        $databaseEntity->setPerguntas($entity->getPerguntas());
+        return parent::update($id, $databaseEntity);
+    }
+
+    /**
+     * 
      * @param EnqueteEntity $entity
      */
     protected function validate(AbstractEntity $entity)

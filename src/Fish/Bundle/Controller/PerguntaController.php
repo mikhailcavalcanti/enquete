@@ -50,7 +50,7 @@ class PerguntaController extends Controller
      * @Route("/pergunta/{id}")
      * @Method({"PUT"})
      * @param Request $request
-     * @param type $id
+     * @param int $id
      * @return Response
      */
     public function updateAction(Request $request, $id)
