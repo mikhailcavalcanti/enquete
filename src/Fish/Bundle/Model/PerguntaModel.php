@@ -2,6 +2,11 @@
 
 namespace Fish\Bundle\Model;
 
+use Fish\Bundle\Entity\AbstractEntity;
+use Fish\Bundle\Entity\PerguntaEntity;
+use InvalidArgumentException;
+use Symfony\Component\Serializer\Exception\Exception;
+
 /**
  * Description of PerguntaModel
  *
@@ -13,14 +18,14 @@ class PerguntaModel extends AbstractModel
     /**
      * 
      * @param int $id
-     * @param \Fish\Bundle\Entity\AbstractEntity $entity
+     * @param AbstractEntity $entity
      * @return type
      */
-    public function update($id, \Fish\Bundle\Entity\AbstractEntity $entity)
+    public function update($id, AbstractEntity $entity)
     {
-        /* @var $entity \Fish\Bundle\Entity\PerguntaEntity */
+        /* @var $entity PerguntaEntity */
         $this->validate($entity);
-        /* @var $databaseEntity \Fish\Bundle\Entity\PerguntaEntity */
+        /* @var $databaseEntity PerguntaEntity */
         $databaseEntity = $this->read($id);
         $databaseEntity->setPergunta($entity->getPergunta());
         $databaseEntity->setRespostas($entity->getRespostas());
@@ -29,15 +34,15 @@ class PerguntaModel extends AbstractModel
 
     /**
      * 
-     * @param \Fish\Bundle\Entity\PerguntaEntity $entity
+     * @param PerguntaEntity $entity
      * @throws Exception
      */
     public function validate($entity)
     {
-        /* @var $entity \Fish\Bundle\Entity\PerguntaEntity */
+        /* @var $entity PerguntaEntity */
         $pergunta = $entity->getPergunta();
         if (empty($pergunta)) {
-            throw new Exception();
+            throw new InvalidArgumentException('Pergunta não pode ser vazia');
         }
     }
 

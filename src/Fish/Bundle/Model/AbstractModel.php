@@ -2,6 +2,8 @@
 
 namespace Fish\Bundle\Model;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\NoResultException;
 use Fish\Bundle\Entity\AbstractEntity;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -63,15 +65,18 @@ class AbstractModel implements CrudInterface
     /**
      * 
      * @param int $id
-     * @return AbstractEntity
+     * @return AbstractEntity|ArrayCollection
+     * @throws NoResultException
      */
     public function read($id = null)
     {
         $entity = $this->container->get($this->getEntityNameService());
-        if (null === $id) {
-            return $this->container->get('doctrine.orm.default_entity_manager')->getRepository(get_class($entity))->findAll();
+        $repository = $this->container->get('doctrine.orm.default_entity_manager')->getRepository(get_class($entity));
+        $result = (null === $id) ? $repository->findAll() : $repository->find($id);
+        if (empty($result)) {
+            throw new NoResultException();
         }
-        return $this->container->get('doctrine.orm.default_entity_manager')->getRepository(get_class($entity))->find($id);
+        return $result;
     }
 
     /**

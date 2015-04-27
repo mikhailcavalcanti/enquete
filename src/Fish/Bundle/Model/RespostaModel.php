@@ -2,6 +2,11 @@
 
 namespace Fish\Bundle\Model;
 
+use Fish\Bundle\Entity\AbstractEntity;
+use Fish\Bundle\Entity\RespostaEntity;
+use InvalidArgumentException;
+use Symfony\Component\Serializer\Exception\Exception;
+
 /**
  * Description of RespostaModel
  *
@@ -13,14 +18,14 @@ class RespostaModel extends AbstractModel
     /**
      * 
      * @param int $id
-     * @param \Fish\Bundle\Entity\AbstractEntity $entity
+     * @param AbstractEntity $entity
      * @return type
      */
-    public function update($id, \Fish\Bundle\Entity\AbstractEntity $entity)
+    public function update($id, AbstractEntity $entity)
     {
-        /* @var $entity \Fish\Bundle\Entity\RespostaEntity */
+        /* @var $entity RespostaEntity */
         $this->validate($entity);
-        /* @var $databaseEntity \Fish\Bundle\Entity\RespostaEntity */
+        /* @var $databaseEntity RespostaEntity */
         $databaseEntity = $this->read($id);
         $databaseEntity->setResposta($entity->getResposta());
         return parent::update($id, $databaseEntity);
@@ -28,15 +33,15 @@ class RespostaModel extends AbstractModel
 
     /**
      * 
-     * @param \Fish\Bundle\Entity\RespostaEntity $entity
+     * @param RespostaEntity $entity
      * @throws Exception
      */
     public function validate($entity)
     {
-        /* @var $entity \Fish\Bundle\Entity\RespostaEntity */
+        /* @var $entity RespostaEntity */
         $pergunta = $entity->getResposta();
         if (empty($pergunta)) {
-            throw new Exception();
+            throw new InvalidArgumentException('Resposta não pode ser vazia');
         }
     }
 
