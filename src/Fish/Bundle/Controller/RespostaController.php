@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class RespostaController extends Controller
 {
+
 //
     /**
      * @Route("/resposta")
@@ -22,31 +23,33 @@ class RespostaController extends Controller
      */
     public function create(Request $request)
     {
-        /* @var $entity RespostaEntity */
-        $entity = $this->get('resposta_entity');
-        $entity->setResposta($request->request->get('resposta'));
-        $this->get('resposta_model')->create($entity);
-        return new JsonResponse($entity, Response::HTTP_CREATED);
+        /* @var $resposta RespostaEntity */
+        $resposta = $this->get('resposta_entity');
+        $resposta->setResposta($request->request->get('resposta'));
+        $this->get('resposta_model')->create($resposta);
+        return new Response($this->get('jms_serializer')->serialize($resposta, 'json'), Response::HTTP_OK, array('content-type' => 'application/json'));
     }
 
     /**
      * @Route("/resposta/{id}", defaults={"id" = null})
      * @Method({"GET"})
      */
-    public function readAction(RespostaEntity $entity)
+    public function readAction(RespostaEntity $resposta)
     {
-        return new JsonResponse($entity);
+        return new Response($this->get('jms_serializer')->serialize($resposta, 'json'), Response::HTTP_OK, array('content-type' => 'application/json'));
     }
 
     /**
      * @Route("/resposta/{id}")
      * @Method({"PUT"})
      */
-    public function updateAction(Request $request, RespostaEntity $entity)
+    public function updateAction(Request $request, $id)
     {
         /* @var $entity RespostaEntity */
-        $entity->setResposta($request->request->get('resposta'));
-        return new JsonResponse($this->get('resposta_model')->update($entity));
+        $resposta = $this->get('resposta_entity');
+        $resposta->setResposta($request->request->get('resposta'));
+        $respostaUpdated = $this->get('resposta_model')->update($id, $resposta);
+        return new Response($this->get('jms_serializer')->serialize($respostaUpdated, 'json'), Response::HTTP_OK, array('content-type' => 'application/json'));
     }
 
     /**
