@@ -41,19 +41,15 @@ class EnqueteController extends Controller
     }
 
     /**
-     * @Route("/enquete/{id}.{_format}")
-     * @Template()
+     * @Route("/enquete/{id}")
+     * @Method({"GET"})
+     * @param EnqueteEntity $enquete
+     * @return Response
      */
-    public function findAction(Request $request, $id, $_format)
+    public function findAction(EnqueteEntity $enquete = null)
     {
-        $pergunta = new PerguntaEntity();
-        $pergunta->setPergunta('Tostines e fesquinho prq e mais gostoso ou mais gostoso prq e frenquinho?');
-        $enquete = new EnqueteEntity();
-        $enquete->setId(1);
-        $enquete->setTitulo('Enquete 01');
-        $enquete->setPerguntas(array($pergunta));
-        #
-        $request->query->set('enquete', $enquete);
+        $stauts = empty($enquete) ? Response::HTTP_NOT_FOUND : Response::HTTP_OK;
+        return new Response($this->get('jms_serializer')->serialize($enquete, 'json'), $stauts, array('content-type' => 'application/json'));
     }
 
     /**
