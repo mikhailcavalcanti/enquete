@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @author Mikhail Cavalcanti <mikhailcavalcanti@gmail.com>
  */
-class AbstractModel implements CrudInterface
+abstract class AbstractModel implements CrudInterface
 {
 
     /**
@@ -57,6 +57,7 @@ class AbstractModel implements CrudInterface
      */
     public function create(AbstractEntity $entity)
     {
+        $this->validate($entity);
         $this->container->get('doctrine.orm.default_entity_manager')->persist($entity);
         $this->container->get('doctrine.orm.default_entity_manager')->flush();
         return $entity;
@@ -91,6 +92,10 @@ class AbstractModel implements CrudInterface
         return $entity;
     }
 
+    /**
+     * 
+     * @param int $id
+     */
     public function delete($id)
     {
         $this->container
@@ -99,4 +104,9 @@ class AbstractModel implements CrudInterface
         $this->container->get('doctrine.orm.default_entity_manager')->flush();
     }
 
+    /**
+     * 
+     * @param AbstractEntity $entity
+     */
+    protected abstract function validate(AbstractEntity $entity);
 }
