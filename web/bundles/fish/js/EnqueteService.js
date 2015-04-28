@@ -5,7 +5,7 @@ app.factory('EnqueteService', function ($http, BASE_URL) {
             return $http.post(BASE_URL + '/enquete/', enquete);
         },
         read: function () {
-            return $http.get(BASE_URL + '/enquete/.json');
+            return $http.get(BASE_URL + '/enquete');
         }
     };
     return Enquete;
