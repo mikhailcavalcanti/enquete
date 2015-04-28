@@ -39,14 +39,16 @@ class PerguntaController extends Controller
     /**
      * @Route("/pergunta/{id}", defaults={"id" = null})
      * @Method({"GET"})
+     * @param type $id
+     * @return Response|JsonResponse
      */
-    public function readAction($id, PerguntaEntity $pergunta = null)
+    public function readAction($id = null)
     {
-        if (empty($id)) {
-            return new Response($this->get('jms_serializer')->serialize($this->get('pergunta_model')->read(), 'json'), Response::HTTP_OK, array('content-type' => 'application/json'));
+        try {
+            return new Response($this->get('jms_serializer')->serialize($this->get('pergunta_model')->read($id), 'json'), Response::HTTP_OK, array('content-type' => 'application/json'));
+        } catch (NoResultException $exception) {
+            return new JsonResponse(null, Response::HTTP_NOT_FOUND);
         }
-        $stauts = empty($pergunta) ? Response::HTTP_NOT_FOUND : Response::HTTP_OK;
-        return new Response($this->get('jms_serializer')->serialize($pergunta, 'json'), $stauts, array('content-type' => 'application/json'));
     }
 
     /**
