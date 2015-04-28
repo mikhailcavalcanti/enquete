@@ -38,13 +38,16 @@ class EnqueteController extends Controller
     }
 
     /**
-     * @Route("/enquete/{id}")
+     * @Route("/enquete/{id}", defaults={"id" = null})
      * @Method({"GET"})
      * @param EnqueteEntity $enquete
      * @return Response
      */
-    public function readAction(EnqueteEntity $enquete = null)
+    public function readAction($id, EnqueteEntity $enquete = null)
     {
+        if (empty($id)) {
+            return new Response($this->get('jms_serializer')->serialize($this->get('enquete_model')->read(), 'json'), Response::HTTP_OK, array('content-type' => 'application/json'));
+        }
         $stauts = empty($enquete) ? Response::HTTP_NOT_FOUND : Response::HTTP_OK;
         return new Response($this->get('jms_serializer')->serialize($enquete, 'json'), $stauts, array('content-type' => 'application/json'));
     }
