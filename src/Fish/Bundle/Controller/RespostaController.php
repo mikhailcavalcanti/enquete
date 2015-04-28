@@ -27,7 +27,7 @@ class RespostaController extends Controller
         $resposta = $this->get('resposta_entity');
         $resposta->setResposta($request->request->get('resposta'));
         $this->get('resposta_model')->create($resposta);
-        return new Response($this->get('jms_serializer')->serialize($resposta, 'json'), Response::HTTP_OK, array('content-type' => 'application/json'));
+        return new Response($this->get('jms_serializer')->serialize($resposta, 'json'), Response::HTTP_CREATED, array('content-type' => 'application/json'));
     }
 
     /**
