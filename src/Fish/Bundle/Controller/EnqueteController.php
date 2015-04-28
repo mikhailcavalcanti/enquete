@@ -2,6 +2,7 @@
 
 namespace Fish\Bundle\Controller;
 
+use Doctrine\ORM\NoResultException;
 use Fish\Bundle\Entity\EnqueteEntity;
 use InvalidArgumentException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -40,16 +41,16 @@ class EnqueteController extends Controller
     /**
      * @Route("/enquete/{id}", defaults={"id" = null})
      * @Method({"GET"})
-     * @param EnqueteEntity $enquete
-     * @return Response
+     * @param int $id
+     * @return Response|JsonResponse
      */
-    public function readAction($id, EnqueteEntity $enquete = null)
+    public function readAction($id = null)
     {
-        if (empty($id)) {
-            return new Response($this->get('jms_serializer')->serialize($this->get('enquete_model')->read(), 'json'), Response::HTTP_OK, array('content-type' => 'application/json'));
+        try {
+            return new Response($this->get('jms_serializer')->serialize($this->get('enquete_model')->read($id), 'json'), Response::HTTP_OK, array('content-type' => 'application/json'));
+        } catch (NoResultException $exception) {
+            return new JsonResponse(null, Response::HTTP_NOT_FOUND);
         }
-        $stauts = empty($enquete) ? Response::HTTP_NOT_FOUND : Response::HTTP_OK;
-        return new Response($this->get('jms_serializer')->serialize($enquete, 'json'), $stauts, array('content-type' => 'application/json'));
     }
 
     /**
