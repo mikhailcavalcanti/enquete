@@ -34,9 +34,13 @@ class RespostaController extends Controller
      * @Route("/resposta/{id}", defaults={"id" = null})
      * @Method({"GET"})
      */
-    public function readAction(RespostaEntity $resposta)
+    public function readAction($id, RespostaEntity $resposta = null)
     {
-        return new Response($this->get('jms_serializer')->serialize($resposta, 'json'), Response::HTTP_OK, array('content-type' => 'application/json'));
+        if (empty($id)) {
+            return new Response($this->get('jms_serializer')->serialize($this->get('resposta_model')->read(), 'json'), Response::HTTP_OK, array('content-type' => 'application/json'));
+        }
+        $stauts = empty($resposta) ? Response::HTTP_NOT_FOUND : Response::HTTP_OK;
+        return new Response($this->get('jms_serializer')->serialize($resposta, 'json'), $stauts, array('content-type' => 'application/json'));
     }
 
     /**

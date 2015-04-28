@@ -36,7 +36,7 @@ class RespostaModel extends AbstractModel
      * @param RespostaEntity $entity
      * @throws Exception
      */
-    public function validate($entity)
+    public function validate(AbstractEntity $entity)
     {
         /* @var $entity RespostaEntity */
         $pergunta = $entity->getResposta();
