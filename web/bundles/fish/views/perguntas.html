@@ -1,0 +1,24 @@
+<section id="pergunta">
+
+    <form>
+        <label for="perguntaInput">Pergunta</label>
+        <input type="text" id="perguntaInput" name="pergunta" ng-model="pergunta.pergunta" />
+        <input type="button" value="Clean" ng-click="perguntaClean()" />
+        <input type="button" value="Add" ng-click="perguntaAdicionar(pergunta)" />
+        <input type="button" value="X" ng-click="perguntaRemover(pergunta)" />
+    </form>
+
+    <label>Perguntas</label>
+    <ul>
+        <li ng-class="pergunta.style" ng-repeat="pergunta in perguntas track by $index">
+            <span ng-click="perguntaToScope(pergunta)">{{pergunta.pergunta}}</span>
+            <input type="button" value="X" ng-click="perguntaRemover(pergunta)" />
+            <ol ng-show="pergunta.selecionada">
+                <li ng-repeat="resposta in pergunta.respostas track by $index">
+                    <span>{{resposta.resposta}}</span>
+                    <input type="button" value="X" ng-click="perguntaRespostaRemover(pergunta, resposta)" />
+                </li>
+            </ol>
+        </li>
+    </ul>
+</section>

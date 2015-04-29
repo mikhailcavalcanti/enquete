@@ -1,0 +1,16 @@
+<section id="resposta">
+    <form>
+        <label for="respostaInput">Resposta</label>
+        <input type="text" id="respostaInput" name="resposta" ng-model="resposta.resposta" />
+        <input type="button" value="Clean" ng-click="respostaClean()" />
+        <input type="button" value="Add" ng-click="respostaAdd(resposta)" />
+        <input type="button" value="X" ng-click="respostaRemove(resposta)" />
+    </form>
+    <label>Respostas</label>
+    <ul>
+        <li ng-repeat="resposta in respostas track by $index">
+            <span ng-click="respostaEdit(resposta)">{{resposta.resposta}}</span>
+            <input type="button" value="Add" ng-click="perguntaRespostaAdicionar(resposta)" />
+        </li>
+    </ul>
+</section>
