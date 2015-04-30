@@ -24,16 +24,20 @@ class PerguntaController extends Controller
      */
     public function createAction(Request $request)
     {
-        /* @var $pergunta PerguntaEntity */
-        $pergunta = $this->get('pergunta_entity');
-        $pergunta->setPergunta($request->request->get('pergunta'));
-        if ($request->request->get('respostas')) {
-            foreach ($request->request->get('respostas') as $respostaRequest) {
-                $pergunta->addResposta($this->get('resposta_model')->read($respostaRequest['id']));
+        try {
+            /* @var $pergunta PerguntaEntity */
+            $pergunta = $this->get('pergunta_entity');
+            $pergunta->setPergunta($request->request->get('pergunta'));
+            if ($request->request->get('respostas')) {
+                foreach ($request->request->get('respostas') as $respostaRequest) {
+                    $pergunta->addResposta($this->get('resposta_model')->read($respostaRequest['id']));
+                }
             }
+            $this->get('pergunta_model')->create($pergunta);
+            return new Response($this->get('jms_serializer')->serialize($pergunta, 'json'), Response::HTTP_CREATED, array('content-type' => 'application/json'));
+        } catch (InvalidArgumentException $exception) {
+            return new JsonResponse(array('messages' => $exception->getMessage()), Response::HTTP_UNPROCESSABLE_ENTITY);
         }
-        $this->get('pergunta_model')->create($pergunta);
-        return new Response($this->get('jms_serializer')->serialize($pergunta, 'json'), Response::HTTP_OK, array('content-type' => 'application/json'));
     }
 
     /**
