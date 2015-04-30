@@ -68,7 +68,7 @@ class PerguntaController extends Controller
             /* @var $pergunta PerguntaEntity */
             $pergunta = $this->get('pergunta_entity');
             $pergunta->setPergunta($request->request->get('pergunta'));
-            foreach ($request->request->get('respostas') as $respostaRequest) {
+            foreach ($request->request->get('respostas', array()) as $respostaRequest) {
                 $pergunta->addResposta($this->get('resposta_model')->read($respostaRequest['id']));
             }
             $perguntaUpdated = $this->get('pergunta_model')->update($id, $pergunta);
