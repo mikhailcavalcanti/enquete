@@ -1,22 +1,22 @@
-<section id="pergunta">
+<section id="pergunta" data-ng-controller="PerguntaController" data-ng-init="readAll()">
 
     <form>
         <label for="perguntaInput">Pergunta</label>
-        <input type="text" id="perguntaInput" name="pergunta" ng-model="pergunta.pergunta" />
-        <input type="button" value="Clean" ng-click="perguntaClean()" />
-        <input type="button" value="Add" ng-click="perguntaAdicionar(pergunta)" />
-        <input type="button" value="X" ng-click="perguntaRemover(pergunta)" />
+        <input type="text" id="perguntaInput" name="pergunta" ng-model="pergunta.pergunta"/>
+        <input type="button" value="Clean" ng-click="clean()" ng-show="pergunta.pergunta.length"/>
+        <input type="button" value="Add" ng-click="save(pergunta);"/>
     </form>
 
     <label>Perguntas</label>
     <ul>
-        <li ng-class="pergunta.style" ng-repeat="pergunta in perguntas track by $index">
-            <span ng-click="perguntaToScope(pergunta)">{{pergunta.pergunta}}</span>
-            <input type="button" value="X" ng-click="perguntaRemover(pergunta)" />
+        <li ng-class="{ 'added': pergunta.selecionada }" ng-repeat="pergunta in perguntas | filter: pergunta.pergunta">
+            <span ng-click="addPerguntaToEnquete(pergunta);">{{ pergunta.pergunta }}</span>
+            <input type="button" value="Edit" ng-click="edit(pergunta);" />
+            <input type="button" value="X" ng-click="delete(pergunta);" />
             <ol ng-show="pergunta.selecionada">
-                <li ng-repeat="resposta in pergunta.respostas track by $index">
-                    <span>{{resposta.resposta}}</span>
-                    <input type="button" value="X" ng-click="perguntaRespostaRemover(pergunta, resposta)" />
+                <li ng-repeat="resposta in pergunta.respostas">
+                    <span>{{ resposta.resposta }}</span>
+                    <input type="button" value="X" ng-click="perguntaRespostaRemover(pergunta, resposta);" />
                 </li>
             </ol>
         </li>

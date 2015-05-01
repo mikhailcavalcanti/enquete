@@ -1,16 +1,17 @@
-<section id="resposta">
+<section id="resposta" data-ng-controller="RespostaController" data-ng-init="readAll()">
     <form>
         <label for="respostaInput">Resposta</label>
         <input type="text" id="respostaInput" name="resposta" ng-model="resposta.resposta" />
-        <input type="button" value="Clean" ng-click="respostaClean()" />
-        <input type="button" value="Add" ng-click="respostaAdd(resposta)" />
-        <input type="button" value="X" ng-click="respostaRemove(resposta)" />
+        <input type="button" value="Clean" ng-click="clean();" ng-show="resposta.resposta.length"/>
+        <input type="button" value="Add" ng-click="save(resposta);"/>
+        <input type="button" value="X" ng-click="delete(resposta);"/>
     </form>
     <label>Respostas</label>
     <ul>
-        <li ng-repeat="resposta in respostas track by $index">
-            <span ng-click="respostaEdit(resposta)">{{resposta.resposta}}</span>
-            <input type="button" value="Add" ng-click="perguntaRespostaAdicionar(resposta)" />
+        <li ng-repeat="resposta in respostas| filter:resposta.resposta">
+            <span ng-click="edit(resposta)">{{ resposta.resposta}}</span>
+            <input type="button" value="Add" ng-click="addRespostaToPergunta(resposta);" />
+            <input type="button" value="Edit" ng-click="edit(resposta);" />
         </li>
     </ul>
 </section>
