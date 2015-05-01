@@ -1,3 +1,3 @@
 EnqueteModel = {
-	titulo: ''
+    titulo: ''
 };

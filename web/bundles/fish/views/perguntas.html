@@ -16,7 +16,7 @@
             <ol ng-show="pergunta.selecionada">
                 <li ng-repeat="resposta in pergunta.respostas">
                     <span>{{ resposta.resposta }}</span>
-                    <input type="button" value="X" ng-click="perguntaRespostaRemover(pergunta, resposta);" />
+                    <input type="button" value="X" ng-click="removeRespostaFromPergunta(pergunta, resposta);" />
                 </li>
             </ol>
         </li>
