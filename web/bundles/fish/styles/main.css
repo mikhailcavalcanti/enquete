@@ -10,7 +10,7 @@ section#enquete { width: 70%; }
 section#enquete div { clear: both; width: 100%; text-align: center; background: #f2f2f2; }
 section#enquete input { width: 317px; }
 section#enquete input[type=button] { width: 150px; }
-section#enquete span { float: left; width: 87%; padding: 7px 0px 7px 5px; }
+section#enquete span { float: left; width: 82%; padding: 7px 0px 7px 5px; }
 section#enquete ul { border: 1px solid #f2f2f2; }
 section#enquete ul li { padding: 5px; cursor: pointer; }
 section#enquete ul li ol { background-color: #CCFFB2; }
