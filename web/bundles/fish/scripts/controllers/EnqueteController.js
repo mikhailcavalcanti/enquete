@@ -15,14 +15,20 @@ app.controller('EnqueteController', function ($rootScope, $scope, EnqueteService
         }
     };
     $scope.create = function (enquete) {
-        EnqueteService.create(enquete).success(function (data, status) {
-            if (201 === status) {
-                var enqueteFromResponse = angular.copy(data);
-                $scope.enquetes.push(enqueteFromResponse);
-                $scope.selecionarEnquete(($scope.enquetes.length - 1), enqueteFromResponse);
-                alert('Sucesso');
-            }
-        });
+        EnqueteService.create(enquete)
+                .success(function (data, status) {
+                    if (201 === status) {
+                        var enqueteFromResponse = angular.copy(data);
+                        $scope.enquetes.push(enqueteFromResponse);
+                        $scope.selecionarEnquete(($scope.enquetes.length - 1), enqueteFromResponse);
+                        alert('Sucesso');
+                    }
+                })
+                .error(function (data, status) {
+                    if (422 === status) {
+                        alert(data.messages);
+                    }
+                });
     };
     $scope.readAll = function () {
         EnqueteService.readAll().success(function (enquetes) {
