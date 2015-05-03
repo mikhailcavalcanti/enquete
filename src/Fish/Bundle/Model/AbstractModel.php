@@ -52,6 +52,15 @@ abstract class AbstractModel implements CrudInterface
 
     /**
      * 
+     * @return ContainerInterface
+     */
+    protected function getContainer()
+    {
+        return $this->container;
+    }
+
+    /**
+     * 
      * @param AbstractEntity $entity
      * @return AbstractEntity
      */

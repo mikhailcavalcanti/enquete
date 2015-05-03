@@ -3,7 +3,6 @@
 namespace Fish\Bundle\Controller;
 
 use Doctrine\ORM\NoResultException;
-use Fish\Bundle\Entity\EnqueteEntity;
 use InvalidArgumentException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -25,12 +24,7 @@ class EnqueteController extends Controller
     public function createAction(Request $request)
     {
         try {
-            /* @var $enquete EnqueteEntity */
-            $enquete = $this->get('enquete_entity');
-            $enquete->setTitulo($request->request->get('titulo'));
-            foreach ($request->request->get('perguntas', array()) as $perguntaRequest) {
-                $enquete->addPergunta($this->get('pergunta_model')->read($perguntaRequest['id']));
-            }
+            $enquete = $this->get('enquete_model')->buildEntity($request->request->all());
             $this->get('enquete_model')->create($enquete);
             return new Response($this->get('jms_serializer')->serialize($enquete, 'json'), Response::HTTP_CREATED, array('content-type' => 'application/json'));
         } catch (InvalidArgumentException $exception) {
@@ -63,12 +57,7 @@ class EnqueteController extends Controller
     public function updateAction(Request $request, $id)
     {
         try {
-            /* @var $enquete EnqueteEntity */
-            $enquete = $this->get('enquete_entity');
-            $enquete->setTitulo($request->request->get('titulo'));
-            foreach ($request->request->get('perguntas', array()) as $perguntaRequest) {
-                $enquete->addPergunta($this->get('pergunta_model')->read($perguntaRequest['id']));
-            }
+            $enquete = $this->get('enquete_model')->buildEntity($request->request->all());
             $enqueteUpdated = $this->get('enquete_model')->update($id, $enquete);
 
             return new Response($this->get('jms_serializer')->serialize($enqueteUpdated, 'json'), Response::HTTP_OK, array('content-type' => 'application/json'));
