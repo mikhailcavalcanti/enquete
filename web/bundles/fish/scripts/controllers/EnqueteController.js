@@ -17,7 +17,9 @@ app.controller('EnqueteController', function ($rootScope, $scope, EnqueteService
     $scope.create = function (enquete) {
         EnqueteService.create(enquete).success(function (data, status) {
             if (201 === status) {
-                $scope.enquetes.push(angular.copy(data));
+                var enqueteFromResponse = angular.copy(data);
+                $scope.enquetes.push(enqueteFromResponse);
+                $scope.selecionarEnquete(($scope.enquetes.length - 1), enqueteFromResponse);
                 alert('Sucesso');
             }
         });
