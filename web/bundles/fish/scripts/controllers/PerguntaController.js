@@ -1,17 +1,17 @@
 app.controller('PerguntaController', function ($scope, $http, PerguntaService) {
-    $scope.save = function(pergunta) {
+    $scope.save = function (pergunta) {
         if (!pergunta.id) {
             $scope.create(pergunta);
         } else {
             $scope.update(pergunta);
         }
     };
-    $scope.edit = function(pergunta) {
+    $scope.edit = function (pergunta) {
         $scope.pergunta = pergunta;
     };
-    $scope.create = function(pergunta) {
+    $scope.create = function (pergunta) {
         PerguntaService.create(pergunta).success(function (data, status) {
-            if (status === 201) {
+            if (201 === status) {
                 $scope.perguntas.push(angular.copy(data));
                 $scope.clean();
                 alert('Sucesso');
@@ -23,9 +23,9 @@ app.controller('PerguntaController', function ($scope, $http, PerguntaService) {
             $scope.perguntas = perguntas;
         });
     };
-    $scope.update = function(pergunta) {
+    $scope.update = function (pergunta) {
         PerguntaService.update(pergunta).success(function (data, status) {
-            if (status === 200) {
+            if (200 === status) {
                 $scope.clean();
                 alert('Sucesso');
             }
@@ -56,8 +56,9 @@ app.controller('PerguntaController', function ($scope, $http, PerguntaService) {
         pergunta.selecionada = !pergunta.selecionada;
     };
     $scope.addRespostaToPergunta = function (resposta) {
-        if (!$scope.pergunta) {
-            alert('Escolha uma pergunta!');
+        if (!$scope.pergunta || !$scope.pergunta.id) {
+            alert('Escolha uma pergunta("Edit") para adicionar uma resposta a mesma!');
+            return;
         }
         if ($scope.pergunta && !$scope.testIndexof($scope.pergunta.respostas, resposta)) {
             $scope.pergunta.respostas.push(resposta);
@@ -70,7 +71,7 @@ app.controller('PerguntaController', function ($scope, $http, PerguntaService) {
             }
         }
     };
-    $scope.$on('addRespostaToPergunta', function(event, args) {
+    $scope.$on('addRespostaToPergunta', function (event, args) {
         $scope.addRespostaToPergunta(args.resposta);
     });
 });

@@ -11,7 +11,7 @@ app.controller('RespostaController', function ($rootScope, $scope, $http, Respos
     };
     $scope.create = function (resposta) {
         RespostaService.create(resposta).success(function (data, status) {
-            if (status === 201) {
+            if (201 === status) {
                 $scope.respostas.push(angular.copy(data));
                 $scope.clean();
                 alert('Sucesso');
@@ -25,7 +25,7 @@ app.controller('RespostaController', function ($rootScope, $scope, $http, Respos
     };
     $scope.update = function (resposta) {
         RespostaService.update(resposta).success(function (data, status) {
-            if (status === 200) {
+            if (200 === 200) {
                 $scope.clean();
                 alert('Sucesso');
             }
@@ -49,7 +49,7 @@ app.controller('RespostaController', function ($rootScope, $scope, $http, Respos
         $scope.resposta = {id: null, resposta: null};
     };
     $scope.addRespostaToPergunta = function (resposta) {
-//        $scope.$emit('addRespostaToPergunta', {respsota: resposta});
         $rootScope.$broadcast('addRespostaToPergunta', {resposta: resposta});
+        $scope.clean();
     };
 });
