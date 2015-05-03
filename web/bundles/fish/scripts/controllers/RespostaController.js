@@ -52,4 +52,8 @@ app.controller('RespostaController', function ($rootScope, $scope, $http, Respos
         $rootScope.$broadcast('addRespostaToPergunta', {resposta: resposta});
         $scope.clean();
     };
+    // Listeners
+    $scope.$on('cleanAll', function () {
+        $scope.clean();
+    });
 });

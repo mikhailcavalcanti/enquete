@@ -71,7 +71,31 @@ app.controller('PerguntaController', function ($scope, $http, PerguntaService) {
             }
         }
     };
+    // Listeners
     $scope.$on('addRespostaToPergunta', function (event, args) {
         $scope.addRespostaToPergunta(args.resposta);
+    });
+    $scope.$on('cleanAll', function () {
+        $scope.clean();
+        $scope.perguntas.forEach(function(pergunta) {
+            pergunta.selecionada = false;
+            pergunta.respostas = [];
+        });
+    });
+    $scope.$on('selectPerguntasFromEnquete', function (event, args) {
+        if ($scope.perguntas) {
+            $scope.perguntas.forEach(function(perguntaFromScope) {
+                perguntaFromScope.selecionada = false;
+                perguntaFromScope.respostas = [];
+                if (args.enquete && args.enquete.perguntas) {
+                    args.enquete.perguntas.forEach(function(perguntaFromEnquete) {
+                        if (perguntaFromScope.id === perguntaFromEnquete.id) {
+                            perguntaFromScope.selecionada = true;
+                            perguntaFromScope.respostas = angular.copy(perguntaFromEnquete.respostas);
+                        }
+                    });
+                }
+            });
+        }
     });
 });

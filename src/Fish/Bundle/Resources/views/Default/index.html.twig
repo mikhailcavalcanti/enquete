@@ -12,7 +12,7 @@
             {% verbatim %}
                 <ul>
                     <li ng-class="{ 'added': $index == enqueteSelecionada }" data-ng-repeat="enquete in enquetes | filter:filter.enquete.titulo" >
-                        <span data-ng-click="selecionarEnquete($index); edit(enquete);">{{ enquete.titulo }}</span>
+                        <span data-ng-click="selecionarEnquete($index, enquete);">{{ enquete.titulo }}</span>
                         <input type="button" value="X" />
                     </li>
                 </ul>
@@ -29,8 +29,8 @@
             <ng-include src="'/bundles/fish/views/respostas.html'"></ng-include>
 
             <div>
-                <input type="button" value="clean" data-ng-click="clean(enquete)" />
-                <input type="button" value="save" data-ng-click="save(enquete)" />
+                <input type="button" value="clean" data-ng-click="cleanAll();" />
+                <input type="button" value="save" data-ng-click="save(enquete);" />
             </div>
         </section>
 
