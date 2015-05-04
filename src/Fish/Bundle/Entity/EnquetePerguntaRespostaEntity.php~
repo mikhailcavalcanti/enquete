@@ -1,0 +1,121 @@
+<?php
+
+/**
+ * 
+ */
+
+namespace Fish\Bundle\Entity;
+
+/**
+ * 
+ */
+class EnquetePerguntaRespostaEntity extends AbstractEntity
+{
+
+    /**
+     *
+     * @var int
+     */
+    private $id;
+
+    /**
+     *
+     * @var EnqueteEntity
+     */
+    private $enquete;
+
+    /**
+     *
+     * @var PerguntaEntity
+     */
+    private $pergunta;
+
+    /**
+     *
+     * @var RespostaEntity
+     */
+    private $resposta;
+
+    /**
+     *
+     * @var integer
+     */
+    private $quantidadeDeVotos;
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set enquete
+     *
+     * @param \int $enquete
+     * @return EnquetePerguntaRespostaEntity
+     */
+    public function setEnquete(\int $enquete)
+    {
+        $this->enquete = $enquete;
+        return $this;
+    }
+
+    /**
+     * Get enquete
+     *
+     * @return \int 
+     */
+    public function getEnquete()
+    {
+        return $this->enquete;
+    }
+
+    /**
+     * Set pergunta
+     *
+     * @param \int $pergunta
+     * @return EnquetePerguntaRespostaEntity
+     */
+    public function setPergunta(\int $pergunta)
+    {
+        $this->pergunta = $pergunta;
+        return $this;
+    }
+
+    /**
+     * Get pergunta
+     *
+     * @return \int 
+     */
+    public function getPergunta()
+    {
+        return $this->pergunta;
+    }
+
+    /**
+     * Set resposta
+     *
+     * @param \int $resposta
+     * @return EnquetePerguntaRespostaEntity
+     */
+    public function setResposta(\int $resposta)
+    {
+        $this->resposta = $resposta;
+        return $this;
+    }
+
+    /**
+     * Get resposta
+     *
+     * @return \int 
+     */
+    public function getResposta()
+    {
+        return $this->resposta;
+    }
+
+}

@@ -28,7 +28,7 @@ class PerguntaModel extends AbstractModel
         /* @var $databaseEntity PerguntaEntity */
         $databaseEntity = $this->read($id);
         $databaseEntity->setPergunta($entity->getPergunta());
-        $databaseEntity->setRespostas($entity->getRespostas());
+//        $databaseEntity->setRespostas($entity->getRespostas());
         return parent::update($id, $databaseEntity);
     }
 

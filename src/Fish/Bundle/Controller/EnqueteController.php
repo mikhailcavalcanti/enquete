@@ -61,7 +61,10 @@ class EnqueteController extends Controller
             $enqueteUpdated = $this->get('enquete_model')->update($id, $enquete);
 
             return new Response($this->get('jms_serializer')->serialize($enqueteUpdated, 'json'), Response::HTTP_OK, array('content-type' => 'application/json'));
-        } catch (InvalidArgumentException $exception) {
+//        } catch (InvalidArgumentException $exception) {
+//            return new JsonResponse(array('messages' => $exception->getMessage()), Response::HTTP_UNPROCESSABLE_ENTITY);
+//        }
+        } catch (Exception $exception) {
             return new JsonResponse(array('messages' => $exception->getMessage()), Response::HTTP_UNPROCESSABLE_ENTITY);
         }
     }

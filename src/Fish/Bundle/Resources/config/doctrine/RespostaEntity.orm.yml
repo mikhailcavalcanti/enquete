@@ -10,3 +10,7 @@ Fish\Bundle\Entity\RespostaEntity:
         resposta:
             type: string
             length: 255
+    oneToMany:
+        enquetePerguntaResposta:
+            targetEntity: Fish\Bundle\Entity\EnquetePerguntaRespostaEntity
+            mappedBy: resposta

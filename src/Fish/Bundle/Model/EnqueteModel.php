@@ -29,7 +29,8 @@ class EnqueteModel extends AbstractModel
         /* @var $databaseEntity EnqueteEntity */
         $databaseEntity = $this->read($id);
         $databaseEntity->setTitulo($entity->getTitulo());
-        $databaseEntity->setPerguntas($entity->getPerguntas());
+//        $databaseEntity->setPerguntas($entity->getPerguntas());
+        $databaseEntity->setEnquetePerguntaResposta($entity->getEnquetePerguntaResposta());
         return parent::update($id, $databaseEntity);
     }
 
@@ -58,16 +59,23 @@ class EnqueteModel extends AbstractModel
         $enquete->setTitulo($params['titulo']);
         if (isset($params['perguntas'])) {
             foreach ($params['perguntas'] as $perguntaRequest) {
+                $enquetePerguntaRespostaEntity = new \Fish\Bundle\Entity\EnquetePerguntaRespostaEntity();
                 /* @var $pergunta PerguntaEntity */
                 $pergunta = $this->getContainer()->get('pergunta_model')->read($perguntaRequest['id']);
-                $respostas = new ArrayCollection();
+//                $pergunta->addEnquetePerguntaResposta($enquetePerguntaRespostaEntity);
+                $enquetePerguntaRespostaEntity->setEnquete($enquete);
+                $enquetePerguntaRespostaEntity->setPergunta($pergunta);
+//                $respostas = new ArrayCollection();
                 if (isset($perguntaRequest['respostas'])) {
                     foreach ($perguntaRequest['respostas'] as $respostaRequest) {
-                        $respostas->add($this->getContainer()->get('resposta_model')->read($respostaRequest['id']));
+//                        $respostas->add($this->getContainer()->get('resposta_model')->read($respostaRequest['id']));
+                        $resposta = $this->getContainer()->get('resposta_model')->read($respostaRequest['id']);
+                        $enquetePerguntaRespostaEntity->setResposta($resposta);
                     }
                 }
-                $pergunta->setRespostas($respostas);
-                $enquete->addPergunta($pergunta);
+//                $pergunta->setRespostas($respostas);
+//                $enquete->addPergunta($pergunta);
+                $enquete->addEnquetePerguntaResposta($enquetePerguntaRespostaEntity);
             }
         }
         return $enquete;

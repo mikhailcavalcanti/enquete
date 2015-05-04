@@ -6,14 +6,31 @@
 
 namespace Fish\Bundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+
 /**
  * 
  */
-class PerguntaEntity
+class PerguntaEntity extends AbstractEntity
 {
 
-    public $id;
-    public $pergunta;
-    public $respostas = array();
+    /**
+     *
+     * @var int 
+     */
+    private $id;
+
+    /**
+     *
+     * @var string 
+     */
+    private $pergunta;
+
+    /**
+     *
+     * @var ArrayCollection
+     */
+    private $enquetePerguntaResposta;
 
 }

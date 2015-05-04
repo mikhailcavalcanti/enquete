@@ -27,14 +27,14 @@ class EnqueteEntity extends AbstractEntity
      *
      * @var ArrayCollection
      */
-    private $perguntas = null;
+    private $enquetePerguntaResposta;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->perguntas = new ArrayCollection();
+        $this->enquetePerguntaResposta = new ArrayCollection();
     }
 
     /**
@@ -56,7 +56,6 @@ class EnqueteEntity extends AbstractEntity
     public function setTitulo($titulo)
     {
         $this->titulo = $titulo;
-
         return $this;
     }
 
@@ -71,47 +70,47 @@ class EnqueteEntity extends AbstractEntity
     }
 
     /**
-     * Add perguntas
+     * Add enquetePerguntaResposta
      *
-     * @param PerguntaEntity $perguntas
+     * @param EnquetePerguntaRespostaEntity $enquetePerguntaResposta
      * @return EnqueteEntity
      */
-    public function addPergunta(PerguntaEntity $perguntas)
+    public function addEnquetePerguntaResposta(EnquetePerguntaRespostaEntity $enquetePerguntaResposta)
     {
-        $this->perguntas[] = $perguntas;
-
+        $this->enquetePerguntaResposta[] = $enquetePerguntaResposta;
         return $this;
     }
 
     /**
-     * Remove perguntas
+     * Remove enquetePerguntaResposta
      *
-     * @param PerguntaEntity $perguntas
+     * @param EnquetePerguntaRespostaEntity $enquetePerguntaResposta
      */
-    public function removePergunta(PerguntaEntity $perguntas)
+    public function removeEnquetePerguntaResposta(EnquetePerguntaRespostaEntity $enquetePerguntaResposta)
     {
-        $this->perguntas->removeElement($perguntas);
+        $this->enquetePerguntaResposta->removeElement($enquetePerguntaResposta);
     }
 
     /**
-     * Get perguntas
+     * Set enquetePerguntaResposta
      *
-     * @return Collection 
+     * @param ArrayCollection $enquetePerguntaRespostas
+     * @return EnqueteEntity
      */
-    public function getPerguntas()
+    public function setEnquetePerguntaResposta(ArrayCollection $enquetePerguntaRespostas)
     {
-        return $this->perguntas;
-    }
-
-    /**
-     * Set perguntas
-     *
-     * @return Collection 
-     */
-    public function setPerguntas(ArrayCollection $perguntas)
-    {
-        $this->perguntas = $perguntas;
+        $this->enquetePerguntaResposta = $enquetePerguntaRespostas;
         return $this;
+    }
+
+    /**
+     * Get enquetePerguntaResposta
+     *
+     * @return Collection 
+     */
+    public function getEnquetePerguntaResposta()
+    {
+        return $this->enquetePerguntaResposta;
     }
 
 }

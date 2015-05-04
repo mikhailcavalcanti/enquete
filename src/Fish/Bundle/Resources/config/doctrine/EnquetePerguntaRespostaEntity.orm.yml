@@ -1,0 +1,34 @@
+Fish\Bundle\Entity\EnquetePerguntaRespostaEntity:
+    type: entity
+    schema: enquete
+    table: enquete_pergunta_resposta
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        quantidadeDeVotos:
+            column: quantidade_votos
+            type: integer
+    manyToOne:
+        enquete:
+          targetEntity: Fish\Bundle\Entity\EnqueteEntity
+          inversedBy: perguntas
+          joinColumn:
+            name: enquete_id
+            referencedColumnName: id
+            nullable: true
+        pergunta:
+          targetEntity: Fish\Bundle\Entity\PerguntaEntity
+          inversedBy: respostas
+          joinColumn:
+            name: resposta_id
+            referencedColumnName: id
+            nullable: true
+        resposta:
+          targetEntity: Fish\Bundle\Entity\RespostaEntity
+          inversedBy: perguntas
+          joinColumn:
+            name: pergunta_id
+            referencedColumnName: id
+            nullable: true

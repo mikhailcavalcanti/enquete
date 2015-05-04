@@ -1,27 +1,30 @@
 <?php
 
+/**
+ * 
+ */
+
 namespace Fish\Bundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 
 /**
- * @author Mikhail Cavalcanti <mikhail.cavalcanti@gmail.com>
+ * 
  */
-class EnqueteEntity extends AbstractEntity
+class RespostaEntity extends AbstractEntity
 {
 
     /**
      *
      * @var int
      */
-    private $id = null;
+    private $id;
 
     /**
      *
      * @var string
      */
-    private $titulo = null;
+    private $resposta;
 
     /**
      *

@@ -29,16 +29,16 @@ class PerguntaEntity extends AbstractEntity
 
     /**
      *
-     * @var ArrayCollection 
+     * @var ArrayCollection
      */
-    private $respostas = array();
+    private $enquetePerguntaResposta;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->respostas = new ArrayCollection();
+        $this->enquetePerguntaResposta = new ArrayCollection();
     }
 
     /**
@@ -74,46 +74,35 @@ class PerguntaEntity extends AbstractEntity
     }
 
     /**
-     * Add respostas
+     * Add enquetePerguntaResposta
      *
-     * @param RespostaEntity $respostas
+     * @param EnquetePerguntaRespostaEntity $enquetePerguntaResposta
      * @return PerguntaEntity
      */
-    public function addResposta(RespostaEntity $respostas)
+    public function addEnquetePerguntaResposta(EnquetePerguntaRespostaEntity $enquetePerguntaResposta)
     {
-        $this->respostas[] = $respostas;
+        $this->enquetePerguntaResposta[] = $enquetePerguntaResposta;
         return $this;
     }
 
     /**
-     * Remove respostas
+     * Remove enquetePerguntaResposta
      *
-     * @param RespostaEntity $respostas
+     * @param EnquetePerguntaRespostaEntity $enquetePerguntaResposta
      */
-    public function removeResposta(RespostaEntity $respostas)
+    public function removeEnquetePerguntaRespostum(EnquetePerguntaRespostaEntity $enquetePerguntaResposta)
     {
-        $this->respostas->removeElement($respostas);
+        $this->enquetePerguntaResposta->removeElement($enquetePerguntaResposta);
     }
 
     /**
-     * Get respostas
+     * Get enquetePerguntaResposta
      *
      * @return Collection 
      */
-    public function getRespostas()
+    public function getEnquetePerguntaResposta()
     {
-        return $this->respostas;
-    }
-
-    /**
-     * Set respostas
-     *
-     * @return PerguntaEntity 
-     */
-    public function setRespostas(ArrayCollection $respostas)
-    {
-        $this->respostas = $respostas;
-        return $this;
+        return $this->enquetePerguntaResposta;
     }
 
 }

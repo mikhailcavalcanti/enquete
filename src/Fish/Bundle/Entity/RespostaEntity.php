@@ -6,6 +6,9 @@
 
 namespace Fish\Bundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+
 /**
  * 
  */
@@ -25,6 +28,20 @@ class RespostaEntity extends AbstractEntity
     private $resposta;
 
     /**
+     *
+     * @var ArrayCollection
+     */
+    private $enquetePerguntaResposta;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->enquetePerguntaResposta = new ArrayCollection();
+    }
+
+    /**
      * Get id
      *
      * @return integer 
@@ -32,6 +49,18 @@ class RespostaEntity extends AbstractEntity
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set resposta
+     *
+     * @param string $resposta
+     * @return RespostaEntity
+     */
+    public function setResposta($resposta)
+    {
+        $this->resposta = $resposta;
+        return $this;
     }
 
     /**
@@ -45,15 +74,35 @@ class RespostaEntity extends AbstractEntity
     }
 
     /**
-     * Set resposta
+     * Add enquetePerguntaResposta
      *
-     * @param string $resposta
+     * @param EnquetePerguntaRespostaEntity $enquetePerguntaResposta
      * @return RespostaEntity
      */
-    public function setResposta($resposta)
+    public function addEnquetePerguntaRespostum(EnquetePerguntaRespostaEntity $enquetePerguntaResposta)
     {
-        $this->resposta = $resposta;
+        $this->enquetePerguntaResposta[] = $enquetePerguntaResposta;
         return $this;
+    }
+
+    /**
+     * Remove enquetePerguntaResposta
+     *
+     * @param EnquetePerguntaRespostaEntity $enquetePerguntaResposta
+     */
+    public function removeEnquetePerguntaRespostum(EnquetePerguntaRespostaEntity $enquetePerguntaResposta)
+    {
+        $this->enquetePerguntaResposta->removeElement($enquetePerguntaResposta);
+    }
+
+    /**
+     * Get enquetePerguntaResposta
+     *
+     * @return Collection 
+     */
+    public function getEnquetePerguntaResposta()
+    {
+        return $this->enquetePerguntaResposta;
     }
 
 }

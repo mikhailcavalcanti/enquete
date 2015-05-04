@@ -10,14 +10,7 @@ Fish\Bundle\Entity\PerguntaEntity:
         pergunta:
             type: string
             length: 255
-    manyToMany:
-        respostas:
-            targetEntity: Fish\Bundle\Entity\RespostaEntity
-            joinTable:
-              name: pergunta_resposta
-              joinColumns:
-                pergunta_id:
-                  referencedColumnName: id
-              inverseJoinColumns:
-                resposta_id:
-                  referencedColumnName: id
+    oneToMany:
+        enquetePerguntaResposta:
+            targetEntity: Fish\Bundle\Entity\EnquetePerguntaRespostaEntity
+            mappedBy: pergunta
