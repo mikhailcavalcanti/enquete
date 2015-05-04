@@ -48,6 +48,22 @@ app.controller('EnqueteController', function ($rootScope, $scope, EnqueteService
                     }
                 });
     };
+    $scope.delete = function (enquete) {
+        if (confirm('Deseja deletar esta enquete?')) {
+            EnqueteService.delete(enquete).success(function (enqueteResponse, status) {
+                if (204 === status) {
+                    for (var index = 0; index < $scope.enquetes.length; index++) {
+                        if ($scope.enquetes[index].id === enquete.id) {
+                            $scope.enquetes.splice(index, 1);
+                            if ($scope.enquete.id === enquete.id) {
+                                $scope.cleanAll();
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    };
     $scope.edit = function (enquete) {
         var perguntaControllerElement = document.querySelector('[data-ng-controller=PerguntaController]');
         var perguntaControllerScope = angular.element(perguntaControllerElement).scope();
@@ -66,7 +82,7 @@ app.controller('EnqueteController', function ($rootScope, $scope, EnqueteService
     $scope.clean = function (enquete) {
         $scope.enquete = EnqueteModel;
     };
-    $scope.cleanAll = function (enquete) {
+    $scope.cleanAll = function () {
         $rootScope.$broadcast('cleanAll');
     };
     $scope.selectPerguntasFromEnquete = function (enquete) {

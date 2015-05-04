@@ -13,7 +13,7 @@
                 <ul>
                     <li ng-class="{ 'added': $index == enqueteSelecionada }" data-ng-repeat="enquete in enquetes | filter:filter.enquete.titulo" >
                         <span data-ng-click="selecionarEnquete($index, enquete);">{{ enquete.titulo }}</span>
-                        <input type="button" value="X" />
+                        <input type="button" data-ng-click="delete(enquete);" value="X" />
                     </li>
                 </ul>
             {% endverbatim %}
