@@ -19,4 +19,13 @@ class DefaultController extends Controller
     {
         return array();
     }
+
+    /**
+     * @Route("/responder")
+     * @Template()
+     */
+    public function responderAction()
+    {
+        return array();
+    }
 }

@@ -10,11 +10,11 @@ section#enquete { width: 70%; }
 section#enquete div { clear: both; width: 100%; text-align: center; background: #f2f2f2; }
 section#enquete input { width: 317px; }
 section#enquete input[type=button] { width: 150px; }
-section#enquete span, section#titulo span { float: left; width: 82%; padding: 7px 0px 7px 5px; }
+section#enquete span, section#titulo span { float: left; width: 79%; padding: 7px 0px 7px 5px; }
 section#enquete ul, section#titulo ul { border: 1px solid #f2f2f2; }
 section#enquete ul li, section#titulo ul li { padding: 5px; cursor: pointer; }
 section#enquete ul li ol { background-color: #CCFFB2; }
-section#enquete ul li ol span { width: 91%; }
+section#enquete ul li ol span { width: 89%; }
 section#enquete ul li ol li:hover { background-color: #cecece; }
 /**/
 section#enquete ul li input[type=button],
@@ -23,3 +23,7 @@ section#resposta form input[type=button], section#titulo input[type=button] { wi
 /**/
 section#pergunta, section#resposta { width: 49%; padding: 0px; border: 0px; }
 .added { background-color: #E0FFD1; }
+/**/
+#enquetes section { width: 20%; }
+#enquetes input[type=button] { width: 80px; float: right; }
+#enquetes input[type=radio] { float: left; }

@@ -1,0 +1,29 @@
+<html data-ng-app="enquete">
+    <head>
+        <link rel="stylesheet" href="/bundles/fish/styles/main.css"
+    </head>
+    <body id="enquetes" data-ng-controller="ResponderEnqueteController" data-ng-init="readAll();">
+        <h1>Enquetes</h1>
+        {% verbatim %}
+            <section data-ng-repeat="enquete in enquetes">
+                <form data-ng-repeat="pergunta in enquete.perguntas">
+                    <label>{{ enquete.titulo}}</label>
+                    <div>{{ pergunta.pergunta}}</div>
+                    <ul>
+                        <li data-ng-repeat="resposta in pergunta.respostas">
+                            <input id="resposta{{ $index}}" type="radio" name="respostas{{ $index}}"/>
+                            <label for="resposta{{ $index}}">{{ resposta.resposta }}</label>
+                        </li>
+                    </ul>
+                    <input type="button" value="Responder"/>
+                </form>
+            </section>
+        {% endverbatim %}
+
+        <script>var BASE_URL = "{{ app.request.getBaseURL() }}/api";</script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+        <script src="/bundles/fish/scripts/app.js"></script>
+        <script src="/bundles/fish/scripts/services/EnqueteService.js"></script>
+        <script src="/bundles/fish/scripts/controllers/ResponderEnqueteController.js"></script>
+    </body>
+</html>
