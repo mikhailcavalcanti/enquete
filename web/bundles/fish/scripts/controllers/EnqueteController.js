@@ -36,11 +36,17 @@ app.controller('EnqueteController', function ($rootScope, $scope, EnqueteService
         });
     };
     $scope.update = function (enquete) {
-        EnqueteService.update(enquete).success(function (data, status) {
-            if (200 === status) {
-                alert('Sucesso');
-            }
-        });
+        EnqueteService.update(enquete)
+                .success(function (data, status) {
+                    if (200 === status) {
+                        alert('Sucesso');
+                    }
+                })
+                .error(function (data, status) {
+                    if (422 === status) {
+                        alert(data.messages);
+                    }
+                });
     };
     $scope.edit = function (enquete) {
         var perguntaControllerElement = document.querySelector('[data-ng-controller=PerguntaController]');

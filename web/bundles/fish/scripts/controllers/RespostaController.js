@@ -10,13 +10,19 @@ app.controller('RespostaController', function ($rootScope, $scope, $http, Respos
         $scope.resposta = resposta;
     };
     $scope.create = function (resposta) {
-        RespostaService.create(resposta).success(function (data, status) {
-            if (201 === status) {
-                $scope.respostas.push(angular.copy(data));
-                $scope.clean();
-                alert('Sucesso');
-            }
-        });
+        RespostaService.create(resposta)
+                .success(function (data, status) {
+                    if (201 === status) {
+                        $scope.respostas.push(angular.copy(data));
+                        $scope.clean();
+                        alert('Sucesso');
+                    }
+                })
+                .error(function (data, status) {
+                    if (422 === status) {
+                        alert(data.messages);
+                    }
+                });
     };
     $scope.readAll = function () {
         RespostaService.readAll().success(function (respostas) {
@@ -24,12 +30,18 @@ app.controller('RespostaController', function ($rootScope, $scope, $http, Respos
         });
     };
     $scope.update = function (resposta) {
-        RespostaService.update(resposta).success(function (data, status) {
-            if (200 === 200) {
-                $scope.clean();
-                alert('Sucesso');
-            }
-        });
+        RespostaService.update(resposta)
+                .success(function (data, status) {
+                    if (200 === 200) {
+                        $scope.clean();
+                        alert('Sucesso');
+                    }
+                })
+                .error(function (data, status) {
+                    if (422 === status) {
+                        alert(data.messages);
+                    }
+                });
     };
     $scope.delete = function (resposta) {
         if (confirm('Deseja deletar esta resposta de TODAS as enquetes?')) {

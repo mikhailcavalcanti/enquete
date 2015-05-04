@@ -10,13 +10,19 @@ app.controller('PerguntaController', function ($scope, $http, PerguntaService) {
         $scope.pergunta = pergunta;
     };
     $scope.create = function (pergunta) {
-        PerguntaService.create(pergunta).success(function (data, status) {
-            if (201 === status) {
-                $scope.perguntas.push(angular.copy(data));
-                $scope.clean();
-                alert('Sucesso');
-            }
-        });
+        PerguntaService.create(pergunta)
+                .success(function (data, status) {
+                    if (201 === status) {
+                        $scope.perguntas.push(angular.copy(data));
+                        $scope.clean();
+                        alert('Sucesso');
+                    }
+                })
+                .error(function (data, status) {
+                    if (422 === status) {
+                        alert(data.messages);
+                    }
+                });
     };
     $scope.readAll = function () {
         PerguntaService.readAll().success(function (perguntas) {
@@ -24,12 +30,18 @@ app.controller('PerguntaController', function ($scope, $http, PerguntaService) {
         });
     };
     $scope.update = function (pergunta) {
-        PerguntaService.update(pergunta).success(function (data, status) {
-            if (200 === status) {
-                $scope.clean();
-                alert('Sucesso');
-            }
-        });
+        PerguntaService.update(pergunta)
+                .success(function (data, status) {
+                    if (200 === status) {
+                        $scope.clean();
+                        alert('Sucesso');
+                    }
+                })
+                .error(function (data, status) {
+                    if (422 === status) {
+                        alert(data.messages);
+                    }
+                });
     };
     $scope.delete = function (pergunta) {
         if (confirm('Deseja deletar esta pergunta de TODAS as enquetes?')) {
@@ -77,18 +89,18 @@ app.controller('PerguntaController', function ($scope, $http, PerguntaService) {
     });
     $scope.$on('cleanAll', function () {
         $scope.clean();
-        $scope.perguntas.forEach(function(pergunta) {
+        $scope.perguntas.forEach(function (pergunta) {
             pergunta.selecionada = false;
             pergunta.respostas = [];
         });
     });
     $scope.$on('selectPerguntasFromEnquete', function (event, args) {
         if ($scope.perguntas) {
-            $scope.perguntas.forEach(function(perguntaFromScope) {
+            $scope.perguntas.forEach(function (perguntaFromScope) {
                 perguntaFromScope.selecionada = false;
                 perguntaFromScope.respostas = [];
                 if (args.enquete && args.enquete.perguntas) {
-                    args.enquete.perguntas.forEach(function(perguntaFromEnquete) {
+                    args.enquete.perguntas.forEach(function (perguntaFromEnquete) {
                         if (perguntaFromScope.id === perguntaFromEnquete.id) {
                             perguntaFromScope.selecionada = true;
                             perguntaFromScope.respostas = angular.copy(perguntaFromEnquete.respostas);

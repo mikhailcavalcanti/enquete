@@ -1,7 +1,7 @@
 <section id="resposta" data-ng-controller="RespostaController" data-ng-init="readAll()">
     <form>
         <label for="respostaInput">Resposta</label>
-        <input type="text" id="respostaInput" name="resposta" ng-model="resposta.resposta" />
+        <input type="text" id="respostaInput" name="resposta" ng-model="resposta.resposta" data-ng-init="resposta.resposta = ''"/>
         <input type="button" value="Clean" ng-click="clean();" ng-show="resposta.resposta.length"/>
         <input type="button" value="Add" ng-click="save(resposta);"/>
         <input type="button" value="X" ng-click="delete(resposta);"/>

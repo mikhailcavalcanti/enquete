@@ -2,7 +2,7 @@
 
     <form>
         <label for="perguntaInput">Pergunta</label>
-        <input type="text" id="perguntaInput" name="pergunta" ng-model="pergunta.pergunta"/>
+        <input type="text" id="perguntaInput" name="pergunta" ng-model="pergunta.pergunta" data-ng-init="pergunta.pergunta = ''"/>
         <input type="button" value="Clean" ng-click="clean()" ng-show="pergunta.pergunta.length"/>
         <input type="button" value="Add" ng-click="save(pergunta);"/>
     </form>
