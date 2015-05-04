@@ -6,13 +6,16 @@
         <h1>Enquetes</h1>
         {% verbatim %}
             <section data-ng-repeat="enquete in enquetes">
+                <label>{{ enquete.titulo}}</label>
                 <form data-ng-repeat="pergunta in enquete.perguntas">
-                    <label>{{ enquete.titulo}}</label>
                     <div>{{ pergunta.pergunta}}</div>
                     <ul>
                         <li data-ng-repeat="resposta in pergunta.respostas">
-                            <input id="resposta{{ $index}}" type="radio" name="respostas{{ $index}}"/>
-                            <label for="resposta{{ $index}}">{{ resposta.resposta }}</label>
+                            <input
+                                id="resposta{{ enquete.id}}-{{ pergunta.id}}-{{ resposta.id}}"
+                                type="radio"
+                                name="resposta{{ enquete.id}}-{{ pergunta.id}}"/>
+                            <label for="resposta{{ enquete.id}}-{{ pergunta.id}}-{{ resposta.id}}">{{ resposta.resposta}}</label>
                         </li>
                     </ul>
                     <input type="button" value="Responder"/>
