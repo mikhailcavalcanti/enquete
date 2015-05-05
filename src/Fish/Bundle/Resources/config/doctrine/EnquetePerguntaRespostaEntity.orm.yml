@@ -10,25 +10,28 @@ Fish\Bundle\Entity\EnquetePerguntaRespostaEntity:
         quantidadeDeVotos:
             column: quantidade_votos
             type: integer
+            nullable: true
+            default: 0
     manyToOne:
         enquete:
           targetEntity: Fish\Bundle\Entity\EnqueteEntity
           inversedBy: perguntas
+          cascade: ["persist"]
           joinColumn:
             name: enquete_id
             referencedColumnName: id
             nullable: true
         pergunta:
           targetEntity: Fish\Bundle\Entity\PerguntaEntity
-          inversedBy: respostas
+          cascade: ["persist"]
           joinColumn:
-            name: resposta_id
+            name: pergunta_id
             referencedColumnName: id
             nullable: true
         resposta:
           targetEntity: Fish\Bundle\Entity\RespostaEntity
-          inversedBy: perguntas
+          cascade: ["persist"]
           joinColumn:
-            name: pergunta_id
+            name: resposta_id
             referencedColumnName: id
             nullable: true

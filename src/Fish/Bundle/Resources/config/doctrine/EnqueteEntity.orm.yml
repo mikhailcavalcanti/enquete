@@ -14,3 +14,4 @@ Fish\Bundle\Entity\EnqueteEntity:
         enquetePerguntaResposta:
             targetEntity: Fish\Bundle\Entity\EnquetePerguntaRespostaEntity
             mappedBy: enquete
+            cascade: ["persist"]

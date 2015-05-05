@@ -2,9 +2,9 @@
 
 namespace Fish\Bundle\Model;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Fish\Bundle\Entity\AbstractEntity;
 use Fish\Bundle\Entity\EnqueteEntity;
+use Fish\Bundle\Entity\EnquetePerguntaRespostaEntity;
 use Fish\Bundle\Entity\PerguntaEntity;
 use InvalidArgumentException;
 
@@ -15,6 +15,17 @@ use InvalidArgumentException;
  */
 class EnqueteModel extends AbstractModel
 {
+
+    public function read($id = null)
+    {
+        /* @var $entity EnqueteEntity */
+        /* @var $entity EnquetePerguntaRespostaEntity */
+//        var_dump($asd);die;
+        $entity = parent::read($id);
+        return $entity;
+//        exit(var_dump($entity->getPergunta()));
+//        exit(var_dump(($entity->getEnquetePerguntaResposta()->count())));
+    }
 
     /**
      * 
@@ -59,7 +70,7 @@ class EnqueteModel extends AbstractModel
         $enquete->setTitulo($params['titulo']);
         if (isset($params['perguntas'])) {
             foreach ($params['perguntas'] as $perguntaRequest) {
-                $enquetePerguntaRespostaEntity = new \Fish\Bundle\Entity\EnquetePerguntaRespostaEntity();
+                $enquetePerguntaRespostaEntity = new EnquetePerguntaRespostaEntity();
                 /* @var $pergunta PerguntaEntity */
                 $pergunta = $this->getContainer()->get('pergunta_model')->read($perguntaRequest['id']);
 //                $pergunta->addEnquetePerguntaResposta($enquetePerguntaRespostaEntity);
