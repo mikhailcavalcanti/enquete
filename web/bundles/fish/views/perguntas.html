@@ -1,24 +1,18 @@
-<section id="pergunta" data-ng-controller="PerguntaController" data-ng-init="readAll()">
+<section id="pergunta" data-ng-controller="PerguntaController">
 
-    <form>
+    <form data-ng-init="init();">
         <label for="perguntaInput">Pergunta</label>
         <input type="text" id="perguntaInput" name="pergunta" ng-model="pergunta.pergunta" data-ng-init="pergunta.pergunta = ''"/>
-        <input type="button" value="Clean" ng-click="clean()" ng-show="pergunta.pergunta.length"/>
         <input type="button" value="Add" ng-click="save(pergunta);"/>
+        <input type="button" value="Clean" ng-click="clean()" ng-show="pergunta.pergunta.length"/>
     </form>
 
     <label>Perguntas</label>
     <ul>
-        <li ng-class="{ 'added': pergunta.selecionada }" ng-repeat="pergunta in perguntas | filter: pergunta.pergunta">
-            <span ng-click="addPerguntaToEnquete(pergunta);">{{ pergunta.pergunta }}</span>
+        <li data-ng-click="selecionarPergunta(pergunta);" data-ng-class="{ 'added': pergunta.selecionada }" data-ng-repeat="pergunta in perguntas| filter: pergunta.pergunta">
+            <span>{{ pergunta.pergunta }}</span>
             <input type="button" value="Edit" ng-click="edit(pergunta);" />
-            <input type="button" value="X" ng-click="delete(pergunta);" />
-            <ol ng-show="pergunta.selecionada">
-                <li ng-repeat="resposta in pergunta.respostas">
-                    <span>{{ resposta.resposta }}</span>
-                    <input type="button" value="X" ng-click="removeRespostaFromPergunta(pergunta, resposta);" />
-                </li>
-            </ol>
+            <input type="button" value="X" ng-click="delete($index);" />
         </li>
     </ul>
 </section>

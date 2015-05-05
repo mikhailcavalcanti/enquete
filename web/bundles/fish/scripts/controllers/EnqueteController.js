@@ -1,18 +1,18 @@
 app.controller('EnqueteController', function ($rootScope, $scope, EnqueteService) {
+    $scope.init = function () {
+        $scope.enquete = EnqueteModel;
+        $scope.readAll();
+    };
     $scope.save = function (enquete) {
-        var perguntaControllerElement = document.querySelector('[data-ng-controller=PerguntaController]');
-        var perguntaControllerScope = angular.element(perguntaControllerElement).scope();
-        enquete.perguntas = [];
-        perguntaControllerScope.perguntas.forEach(function (pergunta) {
-            if (pergunta.selecionada) {
-                enquete.perguntas.push(pergunta);
-            }
-        });
         if (!enquete.id) {
             $scope.create(enquete);
         } else {
             $scope.update(enquete);
         }
+    };
+    $scope.edit = function (enquete) {
+        $scope.enquete = enquete;
+        $rootScope.$broadcast('setPerguntasToScope', {enquete: enquete});
     };
     $scope.create = function (enquete) {
         EnqueteService.create(enquete)
@@ -64,29 +64,11 @@ app.controller('EnqueteController', function ($rootScope, $scope, EnqueteService
             });
         }
     };
-    $scope.edit = function (enquete) {
-        var perguntaControllerElement = document.querySelector('[data-ng-controller=PerguntaController]');
-        var perguntaControllerScope = angular.element(perguntaControllerElement).scope();
-
-        perguntaControllerScope.perguntas.forEach(function (pergunta) {
-            enquete.perguntas.forEach(function (perguntaEnquete) {
-                if (perguntaEnquete.id === pergunta.id) {
-                    pergunta.respostas = perguntaEnquete.respostas;
-                }
-            });
-        });
-
-        $scope.enquete = enquete;
-        $scope.selectPerguntasFromEnquete($scope.enquete);
-    };
     $scope.clean = function (enquete) {
         $scope.enquete = EnqueteModel;
     };
     $scope.cleanAll = function () {
         $rootScope.$broadcast('cleanAll');
-    };
-    $scope.selectPerguntasFromEnquete = function (enquete) {
-        $rootScope.$broadcast('selectPerguntasFromEnquete', {enquete: enquete});
     };
     $scope.selecionarEnquete = function (index, enquete) {
         if ($scope.enqueteSelecionada !== index) {
@@ -99,19 +81,9 @@ app.controller('EnqueteController', function ($rootScope, $scope, EnqueteService
             $scope.cleanAll();
         }
     };
-    // Util
-    $scope.testIndexof = function (list, object) {
-        for (var index = 0; index < list.length; index++) {
-            if (list[index].id === object.id) {
-                return true;
-            }
-        }
-        return false;
-    };
     // Listeners
     $scope.$on('cleanAll', function () {
         $scope.clean();
-        $scope.selectPerguntasFromEnquete();
         $scope.selecionarEnquete(-1, null);
     });
 });

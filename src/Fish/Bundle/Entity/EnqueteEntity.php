@@ -56,7 +56,6 @@ class EnqueteEntity extends AbstractEntity
     public function setTitulo($titulo)
     {
         $this->titulo = $titulo;
-
         return $this;
     }
 
@@ -79,7 +78,6 @@ class EnqueteEntity extends AbstractEntity
     public function addPergunta(PerguntaEntity $perguntas)
     {
         $this->perguntas[] = $perguntas;
-
         return $this;
     }
 

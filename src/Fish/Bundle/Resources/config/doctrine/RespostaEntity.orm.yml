@@ -10,3 +10,13 @@ Fish\Bundle\Entity\RespostaEntity:
         resposta:
             type: string
             length: 255
+        quantidadeVotos:
+            column: quantidade_votos
+            type: integer
+            default: 0
+    manyToOne:
+        pergunta:
+            targetEntity: Fish\Bundle\Entity\PerguntaEntity
+            joinColumn:
+                name: pergunta_id
+                referencedColumnName: id

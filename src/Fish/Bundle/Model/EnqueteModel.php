@@ -56,20 +56,16 @@ class EnqueteModel extends AbstractModel
         /* @var $enquete EnqueteEntity */
         $enquete = $this->getContainer()->get('enquete_entity');
         $enquete->setTitulo($params['titulo']);
+        $perguntas = new ArrayCollection();
         if (isset($params['perguntas'])) {
             foreach ($params['perguntas'] as $perguntaRequest) {
                 /* @var $pergunta PerguntaEntity */
-                $pergunta = $this->getContainer()->get('pergunta_model')->read($perguntaRequest['id']);
-                $respostas = new ArrayCollection();
-                if (isset($perguntaRequest['respostas'])) {
-                    foreach ($perguntaRequest['respostas'] as $respostaRequest) {
-                        $respostas->add($this->getContainer()->get('resposta_model')->read($respostaRequest['id']));
-                    }
-                }
-                $pergunta->setRespostas($respostas);
-                $enquete->addPergunta($pergunta);
+                $perguntaRequest['enquete'] = $enquete;
+                $pergunta = $this->getContainer()->get('pergunta_model')->buildEntity($perguntaRequest);
+                $perguntas->add($pergunta);
             }
         }
+        $enquete->setPerguntas($perguntas);
         return $enquete;
     }
 

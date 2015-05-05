@@ -45,4 +45,21 @@ class RespostaModel extends AbstractModel
         }
     }
 
+    /**
+     * 
+     * @param array $params
+     * @return RespostaEntity
+     */
+    public function buildEntity(array $params)
+    {
+        /* @var $resposta RespostaEntity */
+        $resposta = isset($params['id']) ?
+            $this->getContainer()->get('resposta_model')->read($params['id']) :
+            $this->getContainer()->get('resposta_entity');
+        $resposta
+            ->setPergunta($params['pergunta'])
+            ->setResposta($params['resposta']);
+        return $resposta;
+    }
+
 }

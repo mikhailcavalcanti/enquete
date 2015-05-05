@@ -13,9 +13,6 @@ section#enquete input[type=button] { width: 150px; }
 section#enquete span, section#titulo span { float: left; width: 79%; padding: 7px 0px 7px 5px; }
 section#enquete ul, section#titulo ul { border: 1px solid #f2f2f2; }
 section#enquete ul li, section#titulo ul li { padding: 5px; cursor: pointer; }
-section#enquete ul li ol { background-color: #CCFFB2; }
-section#enquete ul li ol span { width: 89%; }
-section#enquete ul li ol li:hover { background-color: #cecece; }
 /**/
 section#enquete ul li input[type=button],
 section#enquete form  input[type=button],

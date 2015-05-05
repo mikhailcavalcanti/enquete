@@ -10,14 +10,14 @@ Fish\Bundle\Entity\PerguntaEntity:
         pergunta:
             type: string
             length: 255
-    manyToMany:
+    manyToOne:
+        enquete:
+            targetEntity: Fish\Bundle\Entity\EnqueteEntity
+            cascade: ['persist']
+            joinColumn:
+                name: enquete_id
+                referencedColumnName: id
+    oneToMany:
         respostas:
             targetEntity: Fish\Bundle\Entity\RespostaEntity
-            joinTable:
-              name: pergunta_resposta
-              joinColumns:
-                pergunta_id:
-                  referencedColumnName: id
-              inverseJoinColumns:
-                resposta_id:
-                  referencedColumnName: id
+            mappedBy: pergunta

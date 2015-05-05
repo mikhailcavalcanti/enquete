@@ -23,6 +23,12 @@ class PerguntaEntity extends AbstractEntity
 
     /**
      *
+     * @var EnqueteEntity
+     */
+    private $enquete;
+
+    /**
+     *
      * @var string 
      */
     private $pergunta;
@@ -107,13 +113,36 @@ class PerguntaEntity extends AbstractEntity
 
     /**
      * Set respostas
-     *
-     * @return PerguntaEntity 
+     * 
+     * @param ArrayCollection $respostas
+     * @return PerguntaEntity
      */
     public function setRespostas(ArrayCollection $respostas)
     {
         $this->respostas = $respostas;
         return $this;
+    }
+
+    /**
+     * Set enquete
+     *
+     * @param EnqueteEntity $enquete
+     * @return PerguntaEntity
+     */
+    public function setEnquete(EnqueteEntity $enquete = null)
+    {
+        $this->enquete = $enquete;
+        return $this;
+    }
+
+    /**
+     * Get enquete
+     *
+     * @return EnqueteEntity 
+     */
+    public function getEnquete()
+    {
+        return $this->enquete;
     }
 
 }

@@ -1,5 +1,9 @@
 <?php
 
+use Fish\Bundle\Entity\AbstractEntity;
+use Fish\Bundle\Entity\PerguntaEntity;
+use Fish\Bundle\Entity\RespostaEntity;
+
 /**
  * 
  */
@@ -20,9 +24,21 @@ class RespostaEntity extends AbstractEntity
 
     /**
      *
+     * @var PerguntaEntity
+     */
+    private $pergunta;
+
+    /**
+     *
      * @var string
      */
     private $resposta;
+
+    /**
+     *
+     * @var integer
+     */
+    private $quantidadeVotos;
 
     /**
      * Get id
@@ -32,6 +48,18 @@ class RespostaEntity extends AbstractEntity
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set resposta
+     *
+     * @param string $resposta
+     * @return RespostaEntity
+     */
+    public function setResposta($resposta)
+    {
+        $this->resposta = $resposta;
+        return $this;
     }
 
     /**
@@ -45,15 +73,47 @@ class RespostaEntity extends AbstractEntity
     }
 
     /**
-     * Set resposta
+     * Set quantidadeVotos
      *
-     * @param string $resposta
+     * @param \integers $quantidadeVotos
      * @return RespostaEntity
      */
-    public function setResposta($resposta)
+    public function setQuantidadeVotos(\integers $quantidadeVotos)
     {
-        $this->resposta = $resposta;
+        $this->quantidadeVotos = $quantidadeVotos;
         return $this;
+    }
+
+    /**
+     * Get quantidadeVotos
+     *
+     * @return \integers 
+     */
+    public function getQuantidadeVotos()
+    {
+        return $this->quantidadeVotos;
+    }
+
+    /**
+     * Set pergunta
+     *
+     * @param PerguntaEntity $pergunta
+     * @return RespostaEntity
+     */
+    public function setPergunta(PerguntaEntity $pergunta = null)
+    {
+        $this->pergunta = $pergunta;
+        return $this;
+    }
+
+    /**
+     * Get pergunta
+     *
+     * @return PerguntaEntity 
+     */
+    public function getPergunta()
+    {
+        return $this->pergunta;
     }
 
 }

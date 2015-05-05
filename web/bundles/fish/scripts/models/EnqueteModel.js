@@ -1,3 +1,4 @@
 EnqueteModel = {
-    titulo: ''
+    titulo: '',
+    perguntas: []
 };

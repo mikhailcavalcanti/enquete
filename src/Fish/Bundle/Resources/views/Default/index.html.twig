@@ -2,7 +2,7 @@
     <head>
         <link rel="stylesheet" href="/bundles/fish/styles/main.css"
     </head>
-    <body data-ng-controller="EnqueteController" data-ng-init="readAll()">
+    <body data-ng-controller="EnqueteController" data-ng-init="init()">
         <h1>Prototype</h1>
         <section id="titulo">
             <form>
@@ -12,7 +12,7 @@
             {% verbatim %}
                 <ul>
                     <li ng-class="{ 'added': $index == enqueteSelecionada }" data-ng-repeat="enquete in enquetes | filter:filter.enquete.titulo" >
-                        <span data-ng-click="selecionarEnquete($index, enquete);">{{ enquete.titulo }}</span>
+                        <span data-ng-click="selecionarEnquete($index, enquete);">{{ enquete.titulo}}</span>
                         <input type="button" data-ng-click="delete(enquete);" value="X" />
                     </li>
                 </ul>
@@ -33,11 +33,19 @@
                 <input type="button" value="save" data-ng-click="save(enquete);" />
             </div>
         </section>
+        {% verbatim %}
+            <div style="clear: both;">
+                <pre>
+                {{ enquete | json }}
+                </pre>
+            </div>
+        {% endverbatim %}
 
         <script>var BASE_URL = "{{ app.request.getBaseURL() }}/api";</script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
         <script src="/bundles/fish/scripts/app.js"></script>
         <script src="/bundles/fish/scripts/models/EnqueteModel.js"></script>
+        <script src="/bundles/fish/scripts/models/PerguntaModel.js"></script>
         <script src="/bundles/fish/scripts/controllers/EnqueteController.js"></script>
         <script src="/bundles/fish/scripts/controllers/PerguntaController.js"></script>
         <script src="/bundles/fish/scripts/controllers/RespostaController.js"></script>
