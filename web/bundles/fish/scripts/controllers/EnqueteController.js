@@ -1,8 +1,8 @@
 app.controller('EnqueteController', function ($rootScope, $scope, EnqueteService) {
     $scope.init = function () {
-        $scope.enquete = new EnqueteModel();
         $scope.readAll();
-        $scope.setPerguntasToScope(enquete);
+        $scope.enquete = new EnqueteModel();
+        $scope.setPerguntasToScope($scope.enquete);
     };
     $scope.save = function (enquete) {
         if (!enquete.id) {
@@ -22,6 +22,7 @@ app.controller('EnqueteController', function ($rootScope, $scope, EnqueteService
                         var enqueteFromResponse = angular.copy(data);
                         $scope.enquetes.push(enqueteFromResponse);
                         $scope.selecionarEnquete(($scope.enquetes.length - 1), enqueteFromResponse);
+                        $scope.enquete = enqueteFromResponse;
                         alert('Sucesso');
                     }
                 })
@@ -40,6 +41,7 @@ app.controller('EnqueteController', function ($rootScope, $scope, EnqueteService
         EnqueteService.update(enquete)
                 .success(function (data, status) {
                     if (200 === status) {
+                        $scope.enquete = data;
                         alert('Sucesso');
                     }
                 })

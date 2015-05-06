@@ -9,8 +9,8 @@
 
     <label>Perguntas</label>
     <ul>
-        <li data-ng-click="selecionarPergunta(pergunta);" data-ng-class="{ 'added': pergunta.selecionada }" data-ng-repeat="pergunta in perguntas| filter: pergunta.pergunta">
-            <span>{{ pergunta.pergunta }}</span>
+        <li data-ng-click="selecionarPergunta(pergunta);" data-ng-class="{ 'added': pergunta.selecionada }" data-ng-repeat="pergunta in enquete.perguntas| filter: pergunta.pergunta">
+            <span>{{pergunta.pergunta}}</span>
             <input type="button" value="Edit" ng-click="edit(pergunta);" />
             <input type="button" value="X" ng-click="delete($index);" />
         </li>

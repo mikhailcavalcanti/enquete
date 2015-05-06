@@ -3,7 +3,7 @@ app.controller('RespostaController', function ($rootScope, $scope, $http, Respos
         $scope.pergunta = new PerguntaModel();
     };
     $scope.save = function (resposta) {
-        if (!resposta.temporario) {
+        if (false === resposta.temporario) {
             resposta.quantidade_votos = 0;
             resposta.temporario = true;
             $scope.pergunta.respostas.push(resposta);
