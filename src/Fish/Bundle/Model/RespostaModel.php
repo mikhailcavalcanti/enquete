@@ -63,4 +63,17 @@ class RespostaModel extends AbstractModel
         return $resposta;
     }
 
+    /**
+     * 
+     * @param int $id
+     */
+    public function votar($id)
+    {
+        /* @var $resposta RespostaEntity */
+        $resposta = $this->read($id);
+        $resposta->setQuantidadeVotos($resposta->getQuantidadeVotos()++);
+        return parent::update($id, $resposta);
+        
+    }
+
 }

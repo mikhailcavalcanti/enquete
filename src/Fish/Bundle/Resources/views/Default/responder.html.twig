@@ -2,31 +2,42 @@
     <head>
         <link rel="stylesheet" href="/bundles/fish/styles/main.css"
     </head>
-    <body id="enquetes" data-ng-controller="ResponderEnqueteController" data-ng-init="readAll();">
+    <body id="enquetes" data-ng-controller="ResponderEnqueteController" data-ng-init="init();">
         <h1>Enquetes</h1>
         {% verbatim %}
             <section data-ng-repeat="enquete in enquetes">
-                <label>{{ enquete.titulo}}</label>
+                <label>{{enquete.titulo}}</label>
                 <form data-ng-repeat="pergunta in enquete.perguntas">
-                    <div>{{ pergunta.pergunta}}</div>
+                    <div>{{pergunta.pergunta}}</div>
                     <ul>
                         <li data-ng-repeat="resposta in pergunta.respostas">
                             <input
-                                id="resposta{{ enquete.id}}-{{ pergunta.id}}-{{ resposta.id}}"
+                                id="resposta{{enquete.id}}-{{pergunta.id}}-{{resposta.id}}"
                                 type="radio"
-                                name="resposta{{ enquete.id}}-{{ pergunta.id}}"/>
-                            <label for="resposta{{ enquete.id}}-{{ pergunta.id}}-{{ resposta.id}}">{{ resposta.resposta}}</label>
+                                name="resposta{{enquete.id}}-{{ pergunta.id}}"
+                                data-ng-model="pergunta.votar"
+                                value="{{resposta}}"/>
+                            <label for="resposta{{enquete.id}}-{{pergunta.id}}-{{resposta.id}}">{{resposta.resposta}}</label>
                         </li>
                     </ul>
-                    <input type="button" value="Responder"/>
+                    <input type="button" value="Responder" data-ng-click="votar(pergunta.votar);"/>
                 </form>
+                <div style="clear: both;">
+                    <pre>
+                    {{enquete | json}}
+                    </pre>
+                </div>
             </section>
+        {% endverbatim %}
+        {% verbatim %}
+            {{resposta}}
         {% endverbatim %}
 
         <script>var BASE_URL = "{{ app.request.getBaseURL() }}/api";</script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
         <script src="/bundles/fish/scripts/app.js"></script>
         <script src="/bundles/fish/scripts/services/EnqueteService.js"></script>
+        <script src="/bundles/fish/scripts/services/RespostaService.js"></script>
         <script src="/bundles/fish/scripts/controllers/ResponderEnqueteController.js"></script>
     </body>
 </html>

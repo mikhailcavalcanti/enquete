@@ -6,11 +6,14 @@ app.factory('RespostaService', function ($http, BASE_URL) {
         update: function (resposta) {
             return $http.put(BASE_URL + '/resposta/' + resposta.id, resposta);
         },
-        readAll: function() {
+        readAll: function () {
             return $http.get(BASE_URL + '/resposta');
         },
         delete: function (resposta) {
             return $http.delete(BASE_URL + '/resposta/' + resposta.id);
+        },
+        votar: function (resposta) {
+            return $http.patch(BASE_URL + '/resposta/' + resposta.id, { operation: 'increase', fragment: 'quantidade_votos' });
         }
     };
     return Resposta;
