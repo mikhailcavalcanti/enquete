@@ -59,7 +59,7 @@ class PerguntaModel extends AbstractModel
         $pergunta = isset($params['id']) ?
             $this->getContainer()->get('pergunta_model')->read($params['id']) :
             $this->getContainer()->get('pergunta_entity');
-        $pergunta->setEnquete($params['enquete']);
+//        $pergunta->setEnquete($params['enquete']);
         $pergunta->setPergunta($params['pergunta']);
         $respostas = new ArrayCollection();
         if (isset($params['respostas'])) {

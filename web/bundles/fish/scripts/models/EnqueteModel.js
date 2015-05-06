@@ -1,4 +1,4 @@
-EnqueteModel = {
-    titulo: '',
-    perguntas: []
+function EnqueteModel() {
+    this.titulo = '';
+    this.perguntas = [];
 };

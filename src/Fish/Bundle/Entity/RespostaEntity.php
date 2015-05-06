@@ -78,7 +78,7 @@ class RespostaEntity extends AbstractEntity
      * @param \integers $quantidadeVotos
      * @return RespostaEntity
      */
-    public function setQuantidadeVotos(\integers $quantidadeVotos)
+    public function setQuantidadeVotos($quantidadeVotos)
     {
         $this->quantidadeVotos = $quantidadeVotos;
         return $this;

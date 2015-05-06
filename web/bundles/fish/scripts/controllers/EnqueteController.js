@@ -1,7 +1,8 @@
 app.controller('EnqueteController', function ($rootScope, $scope, EnqueteService) {
     $scope.init = function () {
-        $scope.enquete = EnqueteModel;
+        $scope.enquete = new EnqueteModel();
         $scope.readAll();
+        $scope.setPerguntasToScope(enquete);
     };
     $scope.save = function (enquete) {
         if (!enquete.id) {
@@ -12,7 +13,7 @@ app.controller('EnqueteController', function ($rootScope, $scope, EnqueteService
     };
     $scope.edit = function (enquete) {
         $scope.enquete = enquete;
-        $rootScope.$broadcast('setPerguntasToScope', {enquete: enquete});
+        $scope.setPerguntasToScope(enquete);
     };
     $scope.create = function (enquete) {
         EnqueteService.create(enquete)
@@ -65,7 +66,7 @@ app.controller('EnqueteController', function ($rootScope, $scope, EnqueteService
         }
     };
     $scope.clean = function (enquete) {
-        $scope.enquete = EnqueteModel;
+        $scope.filter.enquete.titulo = '';
     };
     $scope.cleanAll = function () {
         $rootScope.$broadcast('cleanAll');
@@ -81,9 +82,11 @@ app.controller('EnqueteController', function ($rootScope, $scope, EnqueteService
             $scope.cleanAll();
         }
     };
+    $scope.setPerguntasToScope = function (enquete) {
+        $rootScope.$broadcast('setPerguntasToScope', {enquete: enquete});
+    };
     // Listeners
     $scope.$on('cleanAll', function () {
         $scope.clean();
-        $scope.selecionarEnquete(-1, null);
     });
 });

@@ -2,12 +2,13 @@
     <head>
         <link rel="stylesheet" href="/bundles/fish/styles/main.css"
     </head>
-    <body data-ng-controller="EnqueteController" data-ng-init="init()">
+    <body data-ng-controller="EnqueteController" data-ng-init="init();">
         <h1>Prototype</h1>
         <section id="titulo">
             <form>
                 <label>Titulo</label>
-                <input type="text" name="titulo" data-ng-model="filter.enquete.titulo" data-ng-init="enquete.titulo = ''"/>
+                <input type="text" name="titulo" data-ng-model="filter.enquete.titulo" data-ng-init="filter.enquete.titulo = ''"/>
+                <input type="button" value="Clean" ng-click="clean();" ng-show="filter.enquete.titulo"/>
             </form>
             {% verbatim %}
                 <ul>
@@ -46,6 +47,7 @@
         <script src="/bundles/fish/scripts/app.js"></script>
         <script src="/bundles/fish/scripts/models/EnqueteModel.js"></script>
         <script src="/bundles/fish/scripts/models/PerguntaModel.js"></script>
+        <script src="/bundles/fish/scripts/models/RespostaModel.js"></script>
         <script src="/bundles/fish/scripts/controllers/EnqueteController.js"></script>
         <script src="/bundles/fish/scripts/controllers/PerguntaController.js"></script>
         <script src="/bundles/fish/scripts/controllers/RespostaController.js"></script>

@@ -13,7 +13,8 @@ Fish\Bundle\Entity\RespostaEntity:
         quantidadeVotos:
             column: quantidade_votos
             type: integer
-            default: 0
+            options:
+                default: 0
     manyToOne:
         pergunta:
             targetEntity: Fish\Bundle\Entity\PerguntaEntity

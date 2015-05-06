@@ -21,3 +21,4 @@ Fish\Bundle\Entity\PerguntaEntity:
         respostas:
             targetEntity: Fish\Bundle\Entity\RespostaEntity
             mappedBy: pergunta
+            cascade: ['persist']

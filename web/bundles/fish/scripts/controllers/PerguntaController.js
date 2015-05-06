@@ -1,6 +1,6 @@
 app.controller('PerguntaController', function ($rootScope, $scope) {
     $scope.init = function () {
-        $scope.pergunta = PerguntaModel;
+        $scope.pergunta = new PerguntaModel();
     };
     $scope.save = function (pergunta) {
         if (!pergunta.temporario) {

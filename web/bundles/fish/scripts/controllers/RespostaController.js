@@ -1,4 +1,7 @@
 app.controller('RespostaController', function ($rootScope, $scope, $http, RespostaService) {
+    $scope.init = function () {
+        $scope.pergunta = new PerguntaModel();
+    };
     $scope.save = function (resposta) {
         if (!resposta.temporario) {
             resposta.quantidade_votos = 0;
@@ -16,10 +19,14 @@ app.controller('RespostaController', function ($rootScope, $scope, $http, Respos
         }
     };
     $scope.clean = function () {
-        $scope.resposta = {id: null, resposta: null};
+        $scope.resposta = new RespostaModel();
     };
     // Listeners
     $scope.$on('setRespostasToScope', function (event, args) {
         $scope.pergunta = args.pergunta;
+    });
+    $scope.$on('setPerguntasToScope', function (event, args) {
+        $scope.clean();
+        $scope.pergunta = new PerguntaModel();
     });
 });

@@ -58,7 +58,8 @@ class RespostaModel extends AbstractModel
             $this->getContainer()->get('resposta_entity');
         $resposta
             ->setPergunta($params['pergunta'])
-            ->setResposta($params['resposta']);
+            ->setResposta($params['resposta'])
+            ->setQuantidadeVotos($params['quantidade_votos']);
         return $resposta;
     }
 
