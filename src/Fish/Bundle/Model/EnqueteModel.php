@@ -54,7 +54,10 @@ class EnqueteModel extends AbstractModel
     public function buildEntity(array $params)
     {
         /* @var $enquete EnqueteEntity */
-        $enquete = $this->getContainer()->get('enquete_entity');
+        $enquete = isset($params['id']) ?
+            $this->getContainer()->get('enquete_model')->read($params['id']) :
+            $this->getContainer()->get('enquete_entity');
+
         $enquete->setTitulo($params['titulo']);
         $perguntas = new ArrayCollection();
         if (isset($params['perguntas'])) {

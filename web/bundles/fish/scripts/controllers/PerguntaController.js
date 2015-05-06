@@ -3,9 +3,9 @@ app.controller('PerguntaController', function ($rootScope, $scope) {
         $scope.pergunta = new PerguntaModel();
     };
     $scope.save = function (pergunta) {
-        if (!pergunta.temporario) {
+        if (false === pergunta.temporario) {
             pergunta.temporario = true;
-            $scope.perguntas.push(pergunta);
+            $scope.enquete.perguntas.push(pergunta);
         }
         $scope.clean();
     };
@@ -15,20 +15,20 @@ app.controller('PerguntaController', function ($rootScope, $scope) {
     };
     $scope.delete = function (index) {
         if (confirm('Deseja deletar esta pergunta?')) {
-            $scope.perguntas.splice(index, 1);
+            $scope.enquete.perguntas.splice(index, 1);
         }
     };
     $scope.clean = function () {
-        $scope.pergunta = {id: null, pergunta: null, respostas: []};
+        $scope.pergunta = new PerguntaModel();
     };
     $scope.selecionarPergunta = function (pergunta) {
-        $scope.perguntas.forEach(function (perguntaScope) {
+        $scope.enquete.perguntas.forEach(function (perguntaScope) {
             perguntaScope.selecionada = perguntaScope.id === pergunta.id;
         });
         $rootScope.$broadcast('setRespostasToScope', {pergunta: pergunta});
     };
     // Listeners
     $scope.$on('setPerguntasToScope', function (event, args) {
-        $scope.perguntas = args.enquete.perguntas;
+        $scope.enquete.perguntas = args.enquete.perguntas;
     });
 });
