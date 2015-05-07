@@ -93,7 +93,7 @@ class RespostaController extends Controller
                 $this->get('resposta_model')->votar($id);
                 return new Response(null, Response::HTTP_NO_CONTENT, array('content-type' => 'application/json'));
             }
-            return new JsonResponse(array('messages' => 'A operação da requisição deve ser "increase"'), Response::HTTP_UNSUPPORTED_MEDIA_TYPE);
+            return new JsonResponse(array('messages' => 'A operação da requisição deve ser "increase"'), Response::HTTP_BAD_REQUEST);
         } catch (NoResultException $exception) {
             return new JsonResponse(null, Response::HTTP_NOT_FOUND);
         }

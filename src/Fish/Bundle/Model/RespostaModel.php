@@ -71,7 +71,8 @@ class RespostaModel extends AbstractModel
     {
         /* @var $resposta RespostaEntity */
         $resposta = $this->read($id);
-        $resposta->setQuantidadeVotos($resposta->getQuantidadeVotos()++);
+        $quantidadeDeVotos = $resposta->getQuantidadeVotos();
+        $resposta->setQuantidadeVotos(++$quantidadeDeVotos);
         return parent::update($id, $resposta);
         
     }

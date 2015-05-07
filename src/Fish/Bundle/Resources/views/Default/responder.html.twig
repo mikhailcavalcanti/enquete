@@ -16,21 +16,13 @@
                                 type="radio"
                                 name="resposta{{enquete.id}}-{{ pergunta.id}}"
                                 data-ng-model="pergunta.votar"
-                                value="{{resposta}}"/>
+                                data-ng-value="resposta"/>
                             <label for="resposta{{enquete.id}}-{{pergunta.id}}-{{resposta.id}}">{{resposta.resposta}}</label>
                         </li>
                     </ul>
                     <input type="button" value="Responder" data-ng-click="votar(pergunta.votar);"/>
                 </form>
-                <div style="clear: both;">
-                    <pre>
-                    {{enquete | json}}
-                    </pre>
-                </div>
             </section>
-        {% endverbatim %}
-        {% verbatim %}
-            {{resposta}}
         {% endverbatim %}
 
         <script>var BASE_URL = "{{ app.request.getBaseURL() }}/api";</script>
